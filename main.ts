@@ -1,6 +1,7 @@
-// npm install
+// npm install -g typescript
 // ts-node main.ts
 // tsc main.ts
+// !!! Non-distributed and non-table statistical determination.
 
 /* The class Statistics has a constructor that takes an array of numbers as an argument, and then it
 has a bunch of methods that calculate various statistics on that array. */
@@ -28,9 +29,9 @@ class Statistics {
          * 
          * The constructor function also creates a function that takes no arguments and returns a
          * string that concatenates the length of the sortdata
-         * @param {number[]} xi - number[] = [11,15,22,36,11,18,22,22,16,28]
+         * @param {number[]} xi - number[] = [35,31,42,43,30,35,49,48,25,60,52]
          */
-        constructor(xi:number[] = [11,15,22,36,11,18,22,22,16,28]){
+        constructor(xi:number[] = [35,31,42,43,30,35,49,48,25,60,52]){
             this.data = xi;
             /* Creating a new array that is a copy of the data array, and then it is
             sorting the new array. */
@@ -98,6 +99,52 @@ class Statistics {
                 HM = divide;
             return `ค่าเฉลี่ยฮาร์โมนิค H.M. = ${HM.toFixed(2)}`;
         }        
+
+        /* `Qr` is a function that takes a number as an argument and returns a string that
+        concatenates the number with a string. */
+        public Qr = (r:number , Qr:number = 0 , x:number[] = this.sortdata , n:number = this.sortdata.length ) => {
+            // r = ... ;
+            Qr = r *(n + 1) / 4;
+            if(Number.isInteger(Qr)) return `ตำแหน่งควอร์ไทล์ Q${r} = ${Qr} \nค่าของควอร์ไทล์ Q${r} = ${x[Qr - 1]}`;
+                else if(Qr % 1 === 0 === false) {
+                    let position1:number = x[Math.floor(Qr) - 1];
+                    let position2:number = x[Math.floor(Qr)];
+                    let difference:any = (Qr - Math.trunc(Qr)).toFixed(2);
+                    let value:number = position1 + difference * (Math.abs(position2 - position1));
+                        return `ตำแหน่งควอร์ไทล์ Q${r} = ${Qr} \nค่าของควอร์ไทล์ Q${r} = ${value}`;
+                }
+        }
+
+
+        /* `Dr` is a function that takes a number as an argument and returns a string that
+        concatenates the number with a string. */
+        public Dr = (r:number , Dr:number = 0 , x:number[] = this.sortdata , n:number = this.sortdata.length ):any => {
+            // r = .... ;
+            Dr = r *(n + 1) / 10;
+            if(Number.isInteger(Dr)) return `ตำแหน่งเดไซล์ D${r} = ${Dr} \nค่าของเดไซล์ D${r} = ${x[Dr - 1]}`;
+                else if(Dr % 1 === 0 === false) {
+                    let position1:number = x[Math.floor(Dr) - 1];
+                    let position2:number = x[Math.floor(Dr)];
+                    let difference:any = (Dr - Math.trunc(Dr)).toFixed(2);
+                    let value:number = position1 + difference * (Math.abs(position2 - position1));
+                        return `ตำแหน่งเดไซล์ D${r} = ${Dr} \nค่าของเดไซล์ D${r} = ${value}`;
+                }
+        }
+
+        /* `Pr` is a function that takes a number as an argument and returns a string that
+        concatenates the number with a string. */
+        public Pr = (r:number , Pr:number = 0 , x:number[] = this.sortdata , n:number = this.sortdata.length ):any => {
+            // r = ... ;
+            Pr = r *(n + 1) / 100;
+            if(Number.isInteger(Pr)) return `ตำแหน่งเปอร์เซนต์ไทล์ P${r} = ${Pr} \nค่าของเปอร์เซนต์ไทล์ P${r} = ${x[Pr - 1]}`;
+                else if(Pr % 1 === 0 === false) {
+                    let position1:number = x[Math.floor(Pr) - 1];
+                    let position2:number = x[Math.floor(Pr)];
+                    let difference:any = (Pr - Math.trunc(Pr)).toFixed(2);
+                    let value:number = position1 + difference * (Math.abs(position2 - position1));
+                        return `ตำแหน่งเปอร์เซนต์ไทล์ P${r} = ${Pr} \nค่าของเปอร์เซนต์ไทล์ P${r} = ${value}`;
+                }
+        }
 }
 
 /* Creating a new instance of the Statistics class. */
@@ -112,3 +159,6 @@ console.log(Stat.Mode());
 console.log(Stat.Mid_range());
 console.log(Stat.Geometric_Mean());
 console.log(Stat.Harmonic_Mean());
+console.log(Stat.Qr(3));
+console.log(Stat.Dr(2));
+console.log(Stat.Pr(85));
