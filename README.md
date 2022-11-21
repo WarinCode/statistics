@@ -1,7 +1,7 @@
 # stat
 <header ><h4 align="center">การหาค่าทางสถิติ แบบไม่แจกแจงข้อมูล</h4></header>
 
-<div><img src="https://raw.githubusercontent.com/VarinCode/stat/main/img/Ex..png" alt="" />
+<div><img src="https://raw.githubusercontent.com/VarinCode/stat/main/img/code.png" alt="" />
 </div><br/>
 
 <div>
