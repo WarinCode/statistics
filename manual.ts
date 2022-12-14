@@ -1,7 +1,7 @@
 /* คู่มือการใช้งานโปรแกรมคำนวณสถิติ    (เขียนเมื่อวันที่ 7/12/2565)  */
 import { Stat } from "./main"; // เรียกใช้งาน module 
 import { Statistics } from "./main"; 
-console.log(Stat); // แสดง property และ method ทุกๆอย่างใน Stat
+console.log(Stat);
 
 /*  
     - โครงสร้างของ class
