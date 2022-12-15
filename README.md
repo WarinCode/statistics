@@ -1,24 +1,29 @@
 # สถิติ
 <header ><h4 align="center">การหาค่าทางสถิติหาได้ 2 แบบคือแบบแจกแจงความถี่ และ แบบไม่แจกแจกความถี่</h4></header>
 
-### ติดตั้งโปรเจคนี้ 
+### ติดตั้งโปรเจค
+เปิด Terminal พิมพ์คำสั่งตามนี้
+- <code> git clone https://github.com/VarinCode/statistics.git</code> <br/>
+- <code> cd statistics</code><br/>
+- <code> code. </code>
 
-<code> git clone https://github.com/VarinCode/statistics.git</code> <br/>
 
-
-### เรียกใช้งานไฟล์ module 
+### นำไปใช้งาน 
 
 ```javascript
-import { Statistics } from "./main"; /* สำหรับใช้งานทั่วไป */
-import { my_stats } from "./apply"; /* สำหรับต้องการหาค่าที่แท้จริงค่าจริงๆ */
+import { Statistics } from "./main"; /* เหมาะกับการใช้งานทั่วไป */
+import { my_stats } from "./apply"; /* เหมาะกับการหาค่าที่แท้จริงค่าจริงๆ */
 
 /* การใส่ข้อมูล */
+/* 
 new Statistics( [arrayช่องที่1] , [arrayช่องที่2] , [arrayช่องที่3] , [arrayช่องที่4] );
-            ช่อง1 คือ ข้อมูล ( x )
-            ช่อง2 คือ ความถี่ ( f )
-            ช่อง3 คือ อันตรภาคชั้น ( class-interval )
-            ช่อง4 คือ ค่าถ่วงน้ำหนัก หน่วยกิต เกรตเฉลี่ย ( w )
-            ช่อง5 คือ ความถี่สะสม ( cf ) ไม่ต้องใส่ข้อมูลในช่องนี้แค่ใส่ในช่องความถี่มามันจะหาให้อัติโนมัติ
+     - ช่อง 1 คือ ข้อมูล ( x )
+     - ช่อง 2 คือ ความถี่ ( f )
+     - ช่อง 3 คือ อันตรภาคชั้น ( class-interval )
+     - ช่อง 4 คือ ค่าถ่วงน้ำหนัก หน่วยกิต เกรตเฉลี่ย ( w )
+     - ช่อง 5 คือ ความถี่สะสม ( cf ) ไม่ต้องใส่ข้อมูลในช่องนี้แค่ใส่ในช่องความถี่มามันจะหาให้อัติโนมัติ
+*/
+
 ```
 
 ### ตัวอย่างการใช้งานโปรแกรม
@@ -56,9 +61,9 @@ console.log(EX3_2.Median());
 
 
 /* ตัวอย่างที่ 4*/
-let Mode:number[] = [10,30,20,10,40,30,10,20,10,30]
-let new_Mode:number[] = [];
-let count:number = 0;
+let Mode = [10,30,20,10,40,30,10,20,10,30]
+let new_Mode = [];
+let count = 0;
 while(Mode.length > count){
     new_Mode.push((Mode[count] / 10) + 6);
     count++;
@@ -71,7 +76,7 @@ console.log(EX4.Mode());
 /* ตัวอย่างที่ 5*/
 let Ex5_data_A = [75,72,71,73,74,76];
 let Ex5_data_B = [112,115,118,116,117,110];
-const conclusion = (A:number[] , B:number[]):void => {
+const conclusion = (A , B):void => {
         console.log('ข้อมูลชุด A มี ' + new Statistics(A).Coefficient_of_range());
         console.log('ข้อมูลชุด B มี ' + new Statistics(B).Coefficient_of_range());    
     const analyze_data:{ a:number , b:number } =  {
