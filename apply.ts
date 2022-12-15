@@ -454,7 +454,11 @@ export class my_stats {
                 Xmax = x[this.data.length - 1];
                 Xmin = x[0];
                 CR = (Xmax - Xmin) / (Xmax + Xmin);
-            } else if(f.length !== 0 && c.length !== 0){
+            } else if(x.length !== 0 && f.length !== 0){
+                Xmax = x[this.data.length - 1];
+                Xmin = x[0];
+                CR = (Xmax - Xmin) / (Xmax + Xmin);
+            } else if(x.length === 0 && f.length !== 0 || f.length !== 0 && c.length !== 0){
                 Xmax = (Math.max(...c) + 0.5);
                 Xmin = (Math.min(...c) - 0.5);
                 CR = (Xmax - Xmin) / (Xmax + Xmin);
@@ -481,7 +485,17 @@ export class my_stats {
                         Q3 = position1 + difference * (Math.abs(position2 - position1));
                     } 
                 CQD = (Q3 - Q1) / (Q3 + Q1);
-            } else if(f.length !== 0){
+            } else if(x.length > 0 && f.length > 0 && this.classinterval.length === 0){
+                let position_Q1 = 1 *(n + 1) / 4;
+                let position_Q3 = 3 *(n + 1) / 4;                
+                let Search:{ Q1:number[] , Q3:number[] } = {
+                    Q1: this.cumulative_frequency.filter(item => item < position_Q1),
+                    Q3: this.cumulative_frequency.filter(item => item < position_Q3),
+                }
+                Q1 =  x[Search.Q1.length];
+                Q3 =  x[Search.Q3.length];
+                CQD = (Q3 - Q1) / (Q3 + Q1);
+            } else if(x.length === 0 && f.length !== 0 && this.classinterval.length !== 0){
                 let Position:{ Q1:number , Q3:number } = {
                     Q1: 1 *(n) / 4,
                     Q3: 3 *(n) / 4,
