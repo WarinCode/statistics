@@ -11,8 +11,8 @@
 ### นำไปใช้งาน 
 
 ```javascript
-import { Statistics } from "./main"; /* เหมาะกับการใช้งานทั่วไป */
-import { my_stats } from "./apply"; /* เหมาะกับการหาค่าที่แท้จริงค่าจริงๆ */
+import { Statistics } from "./main"; /* เหมาะกับการใช้งานทั่วไปทศนิยมจะปัด 2 , 3 ตำแหน่ง */
+import { my_stats } from "./apply"; /* เหมาะกับการหาค่าที่แท้จริงค่าจริงๆทศนิยมจะไม่ปัด */
 
 /* การใส่ข้อมูล */
 /* 
@@ -32,7 +32,7 @@ new Statistics( [arrayช่องที่1] , [arrayช่องที่2] , 
 import { Statistics } from "./main";
 /* ดูตัวอย่างการใช้งานเพิ่มเติมได้ที่ไฟล์ example.ts */
 
-/* ตัวอย่างที่ 1*/
+/* ตัวอย่างที่ 1 */
 let EX1 = new my_stats([8,9,5,7,11,10,12,9,10]);
 console.log(EX1.Mean()); // หาค่าเฉลี่เลขคณิต
 // output: 9
@@ -42,14 +42,14 @@ console.log(EX1.Mode()); // หาค่าฐานนิยม
 // output: 9 , 10
 
 
-/* ตัวอย่างที่ 2*/
+/* ตัวอย่างที่ 2 */
 let array = [24,27,31,22,19,21].map((i) => i + 4)
 let EX2 = new Statistics(array);
 console.log(EX2.Mean());
 // output: ค่าเฉลี่ยเลขคณิต x̄ = 28.00
 
 
-/* ตัวอย่างที่ 3*/
+/* ตัวอย่างที่ 3 */
 let EX3_1 = new Statistics([11,15,22,36,11,18,22,22,16,28]);
 let EX3_2 = new Statistics([156,152,157,150,155,159]);
 console.log(EX3_1.Showdata());
@@ -60,7 +60,7 @@ console.log(EX3_2.Median());
 //         มัธยฐาน Me = 20.00
 
 
-/* ตัวอย่างที่ 4*/
+/* ตัวอย่างที่ 4 */
 let Mode = [10,30,20,10,40,30,10,20,10,30]
 let new_Mode = [];
 let count = 0;
@@ -73,7 +73,7 @@ console.log(EX4.Mode());
 // output: ฐานนิยม Mo = 7
 
 
-/* ตัวอย่างที่ 5*/
+/* ตัวอย่างที่ 5 */
 let Ex5_data_A = [75,72,71,73,74,76];
 let Ex5_data_B = [112,115,118,116,117,110];
 const conclusion = (A , B):void => {
