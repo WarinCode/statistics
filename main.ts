@@ -1,6 +1,7 @@
 // npm i -g typescript
 // ts-node main.ts
 // tsc main.ts
+
 class Statistics {
     public classinterval:number[];
     public mid_point:Function; 
@@ -484,7 +485,11 @@ class Statistics {
                 Xmax = x[this.data.length - 1];
                 Xmin = x[0];
                 CR = (Xmax - Xmin) / (Xmax + Xmin);
-            } else if(f.length !== 0 && c.length !== 0){
+            } else if(x.length !== 0 && f.length !== 0){
+                Xmax = x[this.data.length - 1];
+                Xmin = x[0];
+                CR = (Xmax - Xmin) / (Xmax + Xmin);
+            } else if(x.length === 0 && f.length !== 0 || f.length !== 0 && c.length !== 0){
                 Xmax = (Math.max(...c) + 0.5);
                 Xmin = (Math.min(...c) - 0.5);
                 CR = (Xmax - Xmin) / (Xmax + Xmin);
@@ -511,7 +516,18 @@ class Statistics {
                         Q3 = position1 + difference * (Math.abs(position2 - position1));
                     } 
                 CQD = (Q3 - Q1) / (Q3 + Q1);
-            } else if(f.length !== 0){
+            } else if(x.length > 0 && f.length > 0 && this.classinterval.length === 0){
+                let position_Q1 = 1 *(n + 1) / 4;
+                let position_Q3 = 3 *(n + 1) / 4;                
+                let Search:{ Q1:number[] , Q3:number[] } = {
+                    Q1: this.cumulative_frequency.filter(item => item < position_Q1),
+                    Q3: this.cumulative_frequency.filter(item => item < position_Q3),
+                }
+                Q1 =  x[Search.Q1.length];
+                Q3 =  x[Search.Q3.length];
+                CQD = (Q3 - Q1) / (Q3 + Q1);
+            }
+             else if(x.length === 0 && f.length !== 0 && this.classinterval.length !== 0){
                 let Position:{ Q1:number , Q3:number } = {
                     Q1: 1 *(n) / 4,
                     Q3: 3 *(n) / 4,
@@ -530,7 +546,7 @@ class Statistics {
                 Q3 = l3 + i3 * ((Position.Q3 - Σfl3)  / fq3);
                 CQD = (Q3 - Q1) / (Q3 + Q1);
             }
-            return `สัมประสิทธิ์องส่วนเบี่ยงเบนควอร์ไทล์ C.QD = ${CQD.toFixed(4)}`;
+            return `สัมประสิทธิ์องส่วนเบี่ยงเบนควอร์ไทล์ C.QD = ${CQD.toFixed(3)}`;
         }
 
         public Coefficient_of_mean_deviation = (CMD:number = 0 , MD:number = 0 , x:number[] = this.sortdata , n:number = this.n() , f:number[] = this.frequency , x̄:number = 0 , Σx:number = 0 , Σxf:number = 0 , Σx2:number = 0 , Σxf2:number = 0):string => {
