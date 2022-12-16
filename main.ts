@@ -588,7 +588,7 @@ class Statistics {
                 Q3 = l3 + i3 * ((Position.Q3 - Σfl3)  / fq3);
                 CQD = (Q3 - Q1) / (Q3 + Q1);
             }
-            return `สัมประสิทธิ์องส่วนเบี่ยงเบนควอร์ไทล์ C.QD = ${CQD.toFixed(3)}`;
+            return `สัมประสิทธิ์องส่วนเบี่ยงเบนควอร์ไทล์ C.QD = ${CQD.toFixed(4)}`;
         }
 
         public Coefficient_of_mean_deviation = (CMD:number = 0 , MD:number = 0 , x:number[] = this.sortdata , n:number = this.n() , f:number[] = this.frequency , x̄:number = 0 , Σx:number = 0 , Σxf:number = 0 , Σx2:number = 0 , Σxf2:number = 0):string => {
