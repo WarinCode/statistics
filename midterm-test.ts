@@ -60,8 +60,8 @@ console.log(problem2.Coefficient_of_deviation());
         ตำแหน่งเดไซล์ D4 = 8.4 
         ค่าของเดไซล์ D4 = 6
         ตำแหน่งเปอร์เซนต์ไทล์ P80 = 16.8 
-        ค่าของเปอร์เซนต์ไทล์ P80 = 10.00
-        ส่วนเบี่ยงเบนควอร์ไทล์ Q.D. = 2.38
+        ค่าของเปอร์เซนต์ไทล์ P80 = 9.60
+        ส่วนเบี่ยงเบนควอร์ไทล์ Q.D. = 2.00
         ส่วนเบี่ยงเบนเฉลี่ย M.D. = 2.50
         ส่วนเบี่ยงเบนเฉลี่ยมาตราฐาน S.D. = 2.92
         สัมประสิทธิ์ของพิสัย C.R = 0.600
@@ -76,6 +76,7 @@ frequency = [2,6,5,2,3,2];
 score = [2,6,7,11,12,16,17,21,22,26,27,31];
 let problem3 = new Statistics([],frequency,score);
 
+problem3.Showclassinterval();
 console.log(problem3.Showfrequency());
 console.log(problem3.Mean());
 console.log(problem3.Mode());
@@ -89,6 +90,13 @@ console.log(problem3.Coefficient_of_mean_deviation());
 console.log(problem3.Coefficient_of_deviation());
 
 /* output:
+        อันตรภาคชั้น
+        2 - 6
+        7 - 11
+        12 - 16
+        17 - 21
+        22 - 26
+        27 - 31
         ความถี่ 2 6 5 2 3 2
         ความถี่สะสม 2 8 13 15 18 20
         ค่าเฉลี่ยเลขคณิต x̄ = 15.00
