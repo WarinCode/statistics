@@ -71,7 +71,10 @@ class Statistics {
                 }
                 return `${Oi}\n${Ni}`
             }
-            this.Showfrequency = (Of:string = `ความถี่ ${this.frequency.join(' ')}`, Nf:string = `ความถี่สะสม ${this.cumulative_frequency.join(' ')}`):string => `${Of}\n${Nf}`;
+            this.Showfrequency = (Of:string = `ความถี่ ${this.frequency.join(' ')}`, Nf:string = `ความถี่สะสม ${this.cumulative_frequency.join(' ')}`):(string|undefined) => {
+                if(fi.length !== 0) return `${Of}\n${Nf}`;
+                else return 'ข้อมูลในชุดนี้ไม่มีความถี่';
+            }
             this.Shownumber = ():string => `ข้อมูลชุดนี้มีทั้งหมด ${this.n()} จำนวน`;
             this.ShowI = ():string => `ความกว้างของอันตรภาคชั้นคือ ${this.I}`;
             this.Showweignt = ():string => `ค่าน้ำหนักหรือหน่วยกิต ${this.W.join(' ')}`;
@@ -203,17 +206,29 @@ class Statistics {
 
         public Qr = (r:number = 0 , Qr:number = 0 , position_Qr:number = 0 , x:number[] = this.sortdata , n:number = this.n() , f:number[] = this.frequency , l:number = 0 , i:number  = this.I , Σfl:number = 0 , fq:number = 0):any => {
             // r = ... 
-            if(r > 4) return 'ไม่สามารถหาควอร์ไทล์ของข้อมูลชุดนี้ได้';
-            else {
+            if(r > 4) return `${new Error(`ไม่สามารถหาค่าควอร์ไทล์ Q${r} ของข้อมูลชุดนี้ได้\nเลขควอร์ไทล์จะต้องเป็นเลข 1 ถึง 4 เท่านั้น`)}`;
+            else { 
                 if(x.length > 0 && this.classinterval.length === 0){
                 position_Qr = r *(n + 1) / 4;
                     if(x.length > 0 && Number.isInteger(position_Qr) && f.length === 0 ){
-                        return `ตำแหน่งควอร์ไทล์ Q${r} = ${position_Qr} \nค่าของควอร์ไทล์ Q${r} = ${x[position_Qr - 1]}`;
+                        if(x[Math.trunc(position_Qr)] === undefined || x[Math.trunc(position_Qr)] === null || Number.isNaN(x[Math.trunc(position_Qr)])) return `${new Error(`ไม่สามารถหาค่าควอร์ไทล์ Q${r} ได้ตำแหน่งควอร์ไทล์ที่ ${position_Qr} นั้นไม่มีอยู่จริงในข้อมูลชุดนี้เพราะข้อมูลชุดนี้มีแค่ ${n} จำนวน`)}`;
+                        else return `ตำแหน่งควอร์ไทล์ Q${r} = ${position_Qr} \nค่าของควอร์ไทล์ Q${r} = ${x[position_Qr - 1]}`;
                     } else if(x.length > 0 && f.length !== 0 && this.classinterval.length === 0){
                         let search:number[] = this.cumulative_frequency.filter(item => item < position_Qr);
-                        Qr = x[search.length];
-                            return `ตำแหน่งควอร์ไทล์ Q${r} = ${position_Qr} \nค่าของควอร์ไทล์ Q${r} = ${Qr}`;
+                        let nearby = this.cumulative_frequency[Math.sqrt(Math.trunc(position_Qr)) - 1];
+                          if(nearby < position_Qr && position_Qr < nearby + 1){
+                            let position1:number = x[search.length - 1]
+                            let position2:number =  x[search.length]
+                            let difference:any = (position_Qr - Math.trunc(position_Qr)).toFixed(2);
+                            Qr = position1 + difference * (Math.abs(position2 - position1));
+                                return `ตำแหน่งควอร์ไทล์ Q${r} = ${position_Qr} \nค่าของควอร์ไทล์ Q${r} = ${Qr}`;
+                          } else {
+                            if(x[search.length] === undefined || x[search.length] === null || Number.isNaN(x[search.length])) return `${new Error(`ไม่สามารถหาค่าควอร์ไทล์ Q${r} ได้ตำแหน่งควอร์ไทล์ที่ ${position_Qr} นั้นไม่มีอยู่จริงในข้อมูลชุดนี้เพราะข้อมูลชุดนี้มีแค่ ${n} จำนวน`)}`;
+                            Qr = x[search.length];
+                                return `ตำแหน่งควอร์ไทล์ Q${r} = ${position_Qr} \nค่าของควอร์ไทล์ Q${r} = ${Qr}`;
+                          }
                     } else {
+                        if(x[Math.floor(position_Qr)] === undefined || x[Math.floor(position_Qr)] === null || Number.isNaN(x[Math.floor(position_Qr)])) return `${new Error(`ไม่สามารถหาค่าควอร์ไทล์ Q${r} ได้ตำแหน่งควอร์ไทล์ที่ ${position_Qr} นั้นไม่มีอยู่จริงในข้อมูลชุดนี้เพราะข้อมูลชุดนี้มีแค่ ${n} จำนวน`)}`;
                         let position1:number = x[Math.floor(position_Qr) - 1];
                         let position2:number = x[Math.floor(position_Qr)];
                         let difference:any = (position_Qr - Math.trunc(position_Qr)).toFixed(2);
@@ -234,17 +249,29 @@ class Statistics {
 
         public Dr = (r:number = 0 , Dr:number = 0 , position_Dr:number = 0 , x:number[] = this.sortdata , n:number = this.n() , f:number[] = this.frequency , l:number = 0 , i:number  = this.I , Σfl:number = 0 , fd:number = 0):any => {
             // r = ...
-            if(r > 10) return 'ไม่สามารถหาเดไซล์ของข้อมูลชุดนี้ได้';
-            else {
+            if(r > 10) return `${new Error(`ไม่สามารถหาค่าเดไซล์ D${r} ของข้อมูลชุดนี้ได้\nเลขเดไซล์จะต้องเป็นเลข 1 ถึง 10 เท่านั้น`)}`;
+            else { 
                 if(x.length > 0 && this.classinterval.length === 0){
                 position_Dr = r *(n + 1) / 10;
                     if(x.length > 0 && Number.isInteger(position_Dr) && f.length !== 0 ){
-                        return `ตำแหน่งเดไซล์ D${r} = ${position_Dr} \nค่าของเดไซล์ D${r} = ${x[position_Dr - 1]}`;
+                        if(x[Math.trunc(position_Dr)] === undefined || x[Math.trunc(position_Dr)] === null || Number.isNaN(x[Math.trunc(position_Dr)])) return `${new Error(`ไม่สามารถหาค่าเดไซล์ D${r} ได้ตำแหน่งเดไซล์ที่ ${position_Dr} นั้นไม่มีอยู่จริงในข้อมูลชุดนี้เพราะข้อมูลชุดนี้มีแค่ ${n} จำนวน`)}`;
+                        else return `ตำแหน่งเดไซล์ D${r} = ${position_Dr} \nค่าของเดไซล์ D${r} = ${x[position_Dr - 1]}`;
                     } else if(x.length !== 0 && f.length !== 0 && this.classinterval.length === 0){
                         let search:number[] = this.cumulative_frequency.filter(item => item < position_Dr);
-                        Dr = x[search.length];
-                            return `ตำแหน่งเดไซล์ D${r} = ${position_Dr} \nค่าของเดไซล์ D${r} = ${Dr}`;
+                        let nearby = this.cumulative_frequency[Math.sqrt(Math.trunc(position_Dr)) - 1];
+                          if(nearby < position_Dr && position_Dr < nearby + 1){
+                            let position1:number = x[search.length - 1]
+                            let position2:number =  x[search.length]
+                            let difference:any = (position_Dr - Math.trunc(position_Dr)).toFixed(2);
+                            Dr = position1 + difference * (Math.abs(position2 - position1));
+                                return `ตำแหน่งเดไซล์ D${r} = ${position_Dr} \nค่าของเดไซล์ D${r} = ${Dr}`;
+                          } else {
+                            if(x[search.length] === undefined || x[search.length] === null || Number.isNaN(x[search.length])) return `${new Error(`ไม่สามารถหาค่าเดไซล์ D${r} ได้ตำแหน่งเดไซล์ที่ ${position_Dr} นั้นไม่มีอยู่จริงในข้อมูลชุดนี้เพราะข้อมูลชุดนี้มีแค่ ${n} จำนวน`)}`;
+                            Dr = x[search.length];
+                                return `ตำแหน่งเดไซล์ D${r} = ${position_Dr} \nค่าของเดไซล์ D${r} = ${Dr}`;
+                          }
                     } else {
+                        if(x[Math.floor(position_Dr)] === undefined || x[Math.floor(position_Dr)] === null || Number.isNaN(x[Math.floor(position_Dr)])) return `${new Error(`ไม่สามารถหาค่าเดไซล์ D${r} ได้ตำแหน่งเดไซล์ที่ ${position_Dr} นั้นไม่มีอยู่จริงในข้อมูลชุดนี้เพราะข้อมูลชุดนี้มีแค่ ${n} จำนวน`)}`;
                         let position1:number = x[Math.floor(position_Dr) - 1];
                         let position2:number = x[Math.floor(position_Dr)];
                         let difference:any = (position_Dr - Math.trunc(position_Dr)).toFixed(2);
@@ -265,17 +292,30 @@ class Statistics {
 
         public Pr = (r:number = 0 , Pr:number = 0 , position_Pr:number = 0 , x:number[] = this.sortdata , n:number = this.n() , f:number[] = this.frequency , l:number = 0 , i:number  = this.I , Σfl:number = 0 , fp:number = 0):any => {
             // r = ...
-            if(r > 100) return 'ไม่สามารถหาเปอร์เซนต์ไทล์ของข้อมูลชุดนี้ได้';
+            if(r > 100) return `${new Error(`ไม่สามารถหาค่าเปอร์เซนต์ไทล์ P${r} ของข้อมูลชุดนี้ได้\nเลขเปอร์เซนต์ไทล์จะต้องเป็นเลข 1 ถึง 100 เท่านั้น`)}`;
             else {
                 if(x.length > 0 && this.classinterval.length === 0){
                     position_Pr = r *(n + 1) / 100;
                     if(x.length > 0 && Number.isInteger(position_Pr) && f.length !== 0 ) {
-                        return `ตำแหน่งเปอร์เซนต์ไทล์ P${r} = ${position_Pr} \nค่าของเปอร์เซนต์ไทล์ P${r} = ${x[position_Pr - 1]}`;
+                        if(x[Math.trunc(position_Pr)] === undefined || x[Math.trunc(position_Pr)] === null || Number.isNaN(x[Math.trunc(position_Pr)])) return `${new Error(`ไม่สามารถหาค่าเปอร์เซนต์ไทล์ P${r} ได้ตำแหน่งเปอร์เซนต์ไทล์ที่ ${position_Pr} นั้นไม่มีอยู่จริงในข้อมูลชุดนี้เพราะข้อมูลชุดนี้มีแค่ ${n} จำนวน`)}`;
+                        else return `ตำแหน่งเปอร์เซนต์ไทล์ P${r} = ${position_Pr} \nค่าของเปอร์เซนต์ไทล์ P${r} = ${x[position_Pr - 1]}`;
                     } else if(x.length !== 0 && f.length !== 0 && this.classinterval.length === 0){
                         let search:number[] = this.cumulative_frequency.filter(item => item < position_Pr);
-                        Pr = x[search.length];
-                            return `ตำแหน่งเปอร์เซนต์ไทล์ P${r} = ${position_Pr} \nค่าของเปอร์เซนต์ไทล์ P${r} = ${Pr.toFixed(2)}`;
+                        let nearby = this.cumulative_frequency[Math.sqrt(Math.trunc(position_Pr)) - 1];
+                          if(nearby < position_Pr && position_Pr < nearby + 1){
+                            let position1:number = x[search.length - 1]
+                            let position2:number =  x[search.length]
+                            let difference:any = (position_Pr - Math.trunc(position_Pr)).toFixed(2);
+                            Pr = position1 + difference * (Math.abs(position2 - position1));
+                                return `ตำแหน่งเปอร์เซนต์ไทล์ P${r} = ${position_Pr} \nค่าของเปอร์เซนต์ไทล์ P${r} = ${Pr.toFixed(2)}`;
+                          } else {
+                            if(x[search.length] === undefined || x[search.length] === null || Number.isNaN(x[search.length])) return `${new Error(`ไม่สามารถหาค่าเปอร์เซนต์ไทล์ P${r} ได้ตำแหน่งเปอร์เซนต์ไทล์ที่ ${position_Pr} นั้นไม่มีอยู่จริงในข้อมูลชุดนี้เพราะข้อมูลชุดนี้มีแค่ ${n} จำนวน`)}`;
+                            Pr = x[search.length];
+                                return `ตำแหน่งเปอร์เซนต์ไทล์ P${r} = ${position_Pr} \nค่าของเปอร์เซนต์ไทล์ P${r} = ${Pr.toFixed(2)}`;
+                          }
+                            
                     } else {
+                        if(x[Math.floor(position_Pr) ] === undefined || x[Math.floor(position_Pr) ] === null || Number.isNaN(x[Math.floor(position_Pr) ])) return `${new Error(`ไม่สามารถหาค่าเปอร์เซนต์ไทล์ P${r} ได้ตำแหน่งเปอร์เซนต์ไทล์ที่ ${position_Pr} นั้นไม่มีอยู่จริงในข้อมูลชุดนี้เพราะข้อมูลชุดนี้มีแค่ ${n} จำนวน`)}`;
                         let position1:number = x[Math.floor(position_Pr) - 1];
                         let position2:number = x[Math.floor(position_Pr)];
                         let difference:any = (position_Pr - Math.trunc(position_Pr)).toFixed(2);
@@ -340,20 +380,22 @@ class Statistics {
                     Q1: (1 * (n + 1)) / 4,
                     Q3: (3 * (n + 1)) / 4
                 }
+                
                 let Search:{ Q1:number[] , Q3:number[] } = {
                     Q1: this.cumulative_frequency.filter(item => item < Position.Q1),
                     Q3: this.cumulative_frequency.filter(item => item < Position.Q3),
                 }
-                if(this.cumulative_frequency.map((w:number) => w === Math.round(Position.Q1)) || this.cumulative_frequency.map((p:number) => p === Math.round(Position.Q3))){
-                    Q1 = x[Search.Q1.length - 1];
-                    Q3 = x[Search.Q3.length];
-                        if(this.cumulative_frequency.map((t:number) => t === Math.round(Position.Q1))){
+
+                Q1 = x[Search.Q1.length];
+                Q3 = x[Search.Q3.length];
+                if(this.cumulative_frequency[this.cumulative_frequency.indexOf(Math.trunc(Position.Q1))]  === Math.trunc(Position.Q1) || this.cumulative_frequency[this.cumulative_frequency.indexOf(Math.trunc(Position.Q3))]  === Math.trunc(Position.Q3)){
+                        if(this.cumulative_frequency[this.cumulative_frequency.indexOf(Math.trunc(Position.Q1))] === Math.trunc(Position.Q1)){
                             Q1 = x[Search.Q1.length - 1] + (Math.abs(Position.Q1 - Math.trunc(Position.Q1)) * Math.abs(x[Search.Q1.length - 1] - x[Search.Q1.length]));
-                        } else if(this.cumulative_frequency.map((b:number) => b === Math.round(Position.Q3))){
-                            Q3 = x[Search.Q3.length - 1] + (Math.abs(Position.Q3 - Math.trunc(Position.Q3)) * Math.abs(x[Search.Q3.length - 1] - x[Search.Q3.length]));
-                        }
-                    QD = (Q3 - Q1) / 2;                  
+                        } else if(this.cumulative_frequency[this.cumulative_frequency.indexOf(Math.trunc(Position.Q3))]  === Math.trunc(Position.Q3)){
+                            Q3 = x[Search.Q3.length - 1] + (Math.abs(Position.Q3 - Math.trunc(Position.Q3)) * Math.abs(x[Search.Q3.length - 1] - x[Search.Q3.length]));                            
+                        }            
                 } 
+                QD = (Q3 - Q1) / 2;  
             }   else {
                     let Position:{ Q1:number , Q3:number } = {
                         Q1: (1 * n) / 4,
@@ -375,13 +417,13 @@ class Statistics {
                     fq3 = this.frequency[Search.Q3.length];                
                     Q1 = (l1 + i1 * ((Position.Q1 - Σfl1)  / fq1)).toFixed(2);
                     Q3 = (l3 + i3 * ((Position.Q3 - Σfl3)  / fq3)).toFixed(2);
-                    QD = (Q3 - Q1) / 2
+                    QD = (Q3 - Q1) / 2;
             }
             return `ส่วนเบี่ยงเบนควอร์ไทล์ Q.D. = ${QD.toFixed(2)}`;
         }
 
         public Mean_deviation = (MD:number = 0 , x̄:number = 0 , Σx:number = 0 , n:number = this.n() , x:number[] = this.sortdata , Σx2:number = 0 , f:number[] = this.frequency , Σxf:number = 0):string => {
-            if(f.length === 0){
+            if(x.length > 0  && f.length === 0){
                 for(let p in x){
                     Σx += x[p];
                 }
