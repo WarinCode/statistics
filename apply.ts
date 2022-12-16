@@ -174,8 +174,6 @@ export class my_stats {
         }        
 
         public Qr = (r:number = 0 , Qr:number = 0 , position_Qr:number = 0 , x:number[] = this.sortdata , n:number = this.n() , f:number[] = this.frequency , l:number = 0 , i:number  = this.I , Σfl:number = 0 , fq:number = 0):(string|number) => {
-            if(r > 4) return 'ไม่สามารถหาควอร์ไทล์ของข้อมูลชุดนี้ได้';
-            else {
                 if(x.length > 0 && this.classinterval.length === 0){
                 position_Qr = r *(n + 1) / 4;
                     if(x.length > 0 && Number.isInteger(position_Qr) && f.length === 0 ){
@@ -201,11 +199,8 @@ export class my_stats {
                         return Qr;
                 }
         } 
-    }
 
         public Dr = (r:number = 0 , Dr:number = 0 , position_Dr:number = 0 , x:number[] = this.sortdata , n:number = this.n() , f:number[] = this.frequency , l:number = 0 , i:number  = this.I , Σfl:number = 0 , fd:number = 0):(string|number) => {
-            if(r > 10) return 'ไม่สามารถหาเดไซล์ของข้อมูลชุดนี้ได้';
-            else {
                 if(x.length > 0 && this.classinterval.length === 0){
                 position_Dr = r *(n + 1) / 10;
                     if(x.length > 0 && Number.isInteger(position_Dr) && f.length !== 0 ){
@@ -231,11 +226,8 @@ export class my_stats {
                         return Dr;
             }                    
         }
-    }
 
         public Pr = (r:number = 0 , Pr:number = 0 , position_Pr:number = 0 , x:number[] = this.sortdata , n:number = this.n() , f:number[] = this.frequency , l:number = 0 , i:number  = this.I , Σfl:number = 0 , fp:number = 0):(string|number) => {
-            if(r > 100) return 'ไม่สามารถหาเปอร์เซนต์ไทล์ของข้อมูลชุดนี้ได้';
-            else {
                 if(x.length > 0 && this.classinterval.length === 0){
                 position_Pr = r *(n + 1) / 100;
                     if(x.length > 0 && Number.isInteger(position_Pr) && f.length !== 0 ) {
@@ -261,7 +253,6 @@ export class my_stats {
                         return Pr;
                 }                    
         }
-    }
 
     public Quartile_deviation = (QD:number = 0 , Q1:number = 1 , Q3:number = 3  ,  n:number = this.n() , position_Qr:number[] = this.sortdata , f:number[] = this.frequency , l1:number = 0 , i1:number  = this.I , Σfl1:number = 0 , fq1:number = 0 , l3:number = 0 , i3:number  = this.I , Σfl3:number = 0 , fq3:number = 0 , x:number[] = this.sortdata):number => {
         if(f.length === 0){
