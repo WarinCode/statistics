@@ -96,6 +96,38 @@ conclusion(Ex5_data_A , Ex5_data_B);
 // output: ข้อมูลชุด A มี สัมประสิทธิ์ของพิสัย C.R = 0.034
 //         ข้อมูลชุด B มี สัมประสิทธิ์ของพิสัย C.R = 0.035
 //         ข้อมูล B มีการกระจายมากกว่าข้อมูล A
+
+
+/* ตัวอย่างที่ 6 (อันใหม่) */
+let score1 = [20,30,35,50,75,90];
+let myScore = 35; 
+function process1(Score):void{
+    console.log(new Statistics(score).Standard_scores(Score));
+}
+process1(myScore);
+// output: ค่ามาตราฐาน Z = -0.6
+
+
+/* ตัวอย่างที่ 7 (อันใหม่) */
+let score2 = [20,30,35,50,75,90];
+let list = ['พธู' , 'ชูชาติ' ,'เอนก' , 'ดำรง' , 'ทนง' , 'พิชิต'];
+const process2 = async (Score , Name):Promise<string|Error> => {
+    await Score;
+    await Name;
+    return new Statistics(Score).Standard_scores(Score , Name);
+}
+process2(score , list)
+    .then((result) => console.log(result))
+    .catch((reject) => console.error(reject));
+
+/*  output:
+            คะแนนของ พธู มีค่ามาตราฐานเท่ากับ = -1.2,
+            คะแนนของ ชูชาติ มีค่ามาตราฐานเท่ากับ = -0.8,
+            คะแนนของ เอนก มีค่ามาตราฐานเท่ากับ = -0.6,
+            คะแนนของ ดำรง มีค่ามาตราฐานเท่ากับ = 0,
+            คะแนนของ ทนง มีค่ามาตราฐานเท่ากับ = 1,
+            คะแนนของ พิชิต มีค่ามาตราฐานเท่ากับ = 1.6
+*/
 ```
 
 ### คำสั่งทั้งหมด
@@ -132,6 +164,7 @@ Stat.Coefficient_of_range();                /* หาสัมประสิท
 Stat.Coefficient_of_quartile_deviation();   /* หาสัมประสิทธิ์องส่วนเบี่ยงเบนควอร์ไทล์ */
 Stat.Coefficient_of_mean_deviation();       /* หาสัมประสิทธิ์ของส่วนเบี่ยงเบนเฉลี่ย */
 Stat.Coefficient_of_deviation();            /* หาสัมประสิทธิ์ของการแปรผัน */
+Stat.Standard_scores();                     /* หาค่ามาตราฐาน */
 Stat.Showdata();                            /* แสดงผลข้อมูลทั้งหมด */
 Stat.Shownumber();                          /* แสดงจำนวนข้อมูล */
 Stat.Showclassinterval();                   /* แสดงอันตรภาคชั้น */
