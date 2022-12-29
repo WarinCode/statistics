@@ -19,6 +19,7 @@ import { my_stats } from "./apply"; /* เหมาะกับการหา�
 
 /* การใส่ข้อมูล */
 /* 
+ให้ใส่ข้อมูลลงในเครื่องหมาย [] หรือ เก็บไว้ในรูปของตัวแปร
 new Statistics( [arrayช่องที่1] , [arrayช่องที่2] , [arrayช่องที่3] , [arrayช่องที่4] );
      - ช่อง 1 คือ ข้อมูล ( x )
      - ช่อง 2 คือ ความถี่ ( f )
@@ -82,7 +83,7 @@ let Ex5_data_B = [112,115,118,116,117,110];
 const conclusion = (A , B):void => {
         console.log('ข้อมูลชุด A มี ' + new Statistics(A).Coefficient_of_range());
         console.log('ข้อมูลชุด B มี ' + new Statistics(B).Coefficient_of_range());    
-    const analyze_data:{ a:number , b:number } =  {
+    const analyze_data =  {
         a:new my_stats(A).Coefficient_of_range(),
         b:new my_stats(B).Coefficient_of_range(),
     }
@@ -99,26 +100,27 @@ conclusion(Ex5_data_A , Ex5_data_B);
 
 
 /* ตัวอย่างที่ 6 (อันใหม่) */
-let score1 = [20,30,35,50,75,90];
+let Ex6_Score = [20,30,35,50,75,90];
 let myScore = 35; 
-function process1(Score):void{
-    console.log(new Statistics(score).Standard_scores(Score));
+function process1(data,Score):void{
+    const EX6 = new Statistics(data).Standard_scores(Score);
+    console.log(EX6);
 }
-process1(myScore);
+process1(Ex6_Score,myScore);
 // output: ค่ามาตราฐาน Z = -0.6
 
 
 /* ตัวอย่างที่ 7 (อันใหม่) */
-let score2 = [20,30,35,50,75,90];
+let Ex7_Score = [20,30,35,50,75,90];
 let list = ['พธู' , 'ชูชาติ' ,'เอนก' , 'ดำรง' , 'ทนง' , 'พิชิต'];
 const process2 = async (Score , Name):Promise<string|Error> => {
     await Score;
     await Name;
     return new Statistics(Score).Standard_scores(Score , Name);
 }
-process2(score , list)
-    .then((result) => console.log(result))
-    .catch((reject) => console.error(reject));
+process2(Ex7_Score , list)
+    .then((res) => console.log(res))
+    .catch((rej) => console.error(rej));
 
 /*  output:
             คะแนนของ พธู มีค่ามาตราฐานเท่ากับ = -1.2,
