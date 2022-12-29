@@ -644,3 +644,23 @@ Ex58_conclusion(Ex58_data_A , Ex58_data_B);
 // output: ข้อมูลชุด A มี สัมประสิทธิ์ของการแปรผัน C.SD = 0.144
 //         ข้อมูลชุด B มี สัมประสิทธิ์ของการแปรผัน C.SD = 0.101
 //         ข้อมูล A มีการกระจายมากกว่าข้อมูล B
+
+// Ex.59
+let Ex59_data:number[] = [20,30,35,50,75,90];
+let myScore:number = 30; 
+let Ex59 = new Statistics(Ex59_data).Standard_scores(myScore);
+console.log(Ex59);
+// output: ค่ามาตราฐาน Z = -0.8
+
+// Ex.60
+let Ex60_data:number[] = [20,30,35,50,75,90];
+let name:string[] = ['พธู' , 'ชูชาติ' ,'เอนก' , 'ดำรง' , 'ทนง' , 'พิชิต'];
+let Ex60 = new Statistics(Ex60_data).Standard_scores(Ex60_data,name);
+console.log(Ex60);
+// output: 
+        // คะแนนของ พธู มีค่ามาตราฐาน = -1.2,
+        // คะแนนของ ชูชาติ มีค่ามาตราฐาน = -0.8,
+        // คะแนนของ เอนก มีค่ามาตราฐาน = -0.6,
+        // คะแนนของ ดำรง มีค่ามาตราฐาน = 0,
+        // คะแนนของ ทนง มีค่ามาตราฐาน = 1,
+        // คะแนนของ พิชิต มีค่ามาตราฐาน = 1.6
