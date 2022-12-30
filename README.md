@@ -102,18 +102,17 @@ conclusion(Ex5_data_A , Ex5_data_B);
 /* ตัวอย่างที่ 6 (อันใหม่) */
 let Ex6_Score = [20,30,35,50,75,90];
 let myScore = 35; 
-function process1(data,Score):void{
+(function(data,Score):void{
     const EX6 = new Statistics(data).Standard_scores(Score);
     console.log(EX6);
-}
-process1(Ex6_Score,myScore);
+})(Ex6_Score , myScore);
 // output: ค่ามาตราฐาน Z = -0.6
 
 
 /* ตัวอย่างที่ 7 (อันใหม่) */
 let Ex7_Score = [20,30,35,50,75,90];
 let list = ['พธู' , 'ชูชาติ' ,'เอนก' , 'ดำรง' , 'ทนง' , 'พิชิต'];
-const process2 = async (Score , Name):Promise<(string|Error)> => {
+const process = async (Score , Name):Promise<(string|Error)> => {
     try {
         await Score;
         await Name;
@@ -122,7 +121,7 @@ const process2 = async (Score , Name):Promise<(string|Error)> => {
         throw err;
     }
 }
-process2(Ex7_Score , list)
+process(Ex7_Score , list)
     .then((res) => console.log(res))
     .catch((rej) => console.error(rej));
 
