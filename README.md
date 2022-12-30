@@ -113,10 +113,14 @@ process1(Ex6_Score,myScore);
 /* ตัวอย่างที่ 7 (อันใหม่) */
 let Ex7_Score = [20,30,35,50,75,90];
 let list = ['พธู' , 'ชูชาติ' ,'เอนก' , 'ดำรง' , 'ทนง' , 'พิชิต'];
-const process2 = async (Score , Name):Promise<string|Error> => {
-    await Score;
-    await Name;
-    return new Statistics(Score).Standard_scores(Score , Name);
+const process2 = async (Score , Name):Promise<(string|Error)> => {
+    try {
+        await Score;
+        await Name;
+        return new Statistics(Score).Standard_scores(Score , Name);
+    } catch(err) {
+        throw err;
+    }
 }
 process2(Ex7_Score , list)
     .then((res) => console.log(res))
