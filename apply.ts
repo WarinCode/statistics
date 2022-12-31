@@ -2,7 +2,7 @@
 // ts-node apply.ts
 // tsc apply.ts
 
-export class Statistics {
+export class my_stats {
     public classinterval:number[];
     public mid_point:Function; 
     public data:number[];
