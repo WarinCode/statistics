@@ -112,10 +112,11 @@ class Statistics {
              return `ค่าเฉลี่ยเลขคณิต x̄ = ${x̄.toFixed(2)}`; 
         }
         
-        public Median = (Med:number = 0 , n:number = this.n() , l:number = 0 , i:number = this.I , x:number[] = this.sortdata , f:number[] = this.frequency , Σfl:number = 0 , fm:number = 0 , positionMed:(number|string) = 0):string => {
+        public Median = (Med:number = 0 , n:number = this.n() , l:number = 0 , i:number = this.I , x:number[] = this.sortdata , f:number[] = this.frequency , Σfl:number = 0 , fm:number = 0 , positionMed:number = 0):string => {
             if(x.length > 0 && f.length === 0){
                 n % 2 !== 0 ? Med = this.sortdata[Math.floor(n / 2)] : Med = (this.sortdata[Math.floor((n - 1) / 2)] + this.sortdata[Math.floor((n + 1) / 2)]) / 2;
-                positionMed = `${this.sortdata[Math.floor((n - 1) / 2)]} ระหว่าง ${this.sortdata[Math.floor((n + 1) / 2)]}`
+                let positionMed:string = `${this.sortdata[Math.floor((n - 1) / 2)]} ระหว่าง ${this.sortdata[Math.floor((n + 1) / 2)]}`
+                    return `ตำแหน่งมัธยฐาน = ${positionMed}\nมัธยฐาน Me = ${Med.toFixed(2)}`; 
             } else {
                     positionMed = n / 2;         
                 if(this.classinterval.length === 0){
