@@ -82,16 +82,16 @@ export class my_stats {
              return x̄; 
         }
         
-        public Median = (Med:number = 0 , n:number = this.n() , l:number = 0 , i:number = this.I , x:number[] = this.sortdata , f:number[] = this.frequency , Σfl:number = 0 , fm:number = 0 , positionMed:(number|string) = 0):number => {
+        public Median = (Med:number = 0 , n:number = this.n() , l:number = 0 , i:number = this.I , x:number[] = this.sortdata , f:number[] = this.frequency , Σfl:number = 0 , fm:number = 0 , positionMed:number = 0):number => {
             if(x.length > 0 && f.length === 0){
                 n % 2 !== 0 ? Med = this.sortdata[Math.floor(n / 2)] : Med = (this.sortdata[Math.floor((n - 1) / 2)] + this.sortdata[Math.floor((n + 1) / 2)]) / 2;
             } else {
                     positionMed = n / 2;         
                 if(this.classinterval.length === 0){
-                    let search:number[] = this.cumulative_frequency.filter(item => item < positionMed);
+                    let search:number[] = this.cumulative_frequency.filter((item:any) => item < positionMed);
                         Med = x[search.length];
                 } else {
-                    let search:number[] = this.cumulative_frequency.filter(item => item < positionMed);
+                    let search:number[] = this.cumulative_frequency.filter((item:any)=> item < positionMed);
                     if(this.classinterval.length === 0) l = x[search.length * 2] - 0.5;   
                     else l = this.classinterval[search.length * 2] - 0.5;                   
                     Σfl = this.cumulative_frequency[search.length - 1];
