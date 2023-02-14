@@ -1,3 +1,7 @@
+// npm i -g typescript
+// ts-node main.ts
+// tsc main.ts
+
 class Statistics {
     public classinterval:number[];
     public mid_point:Function; 
