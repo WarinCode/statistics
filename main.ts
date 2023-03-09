@@ -13,21 +13,22 @@
     - เพิ่มการแสดงข้อมูลในส่วนตารางโดยต้องมีการรับค่าค่า parameter จากผู้ใช้งาน
 */
 
+// ยังทำไม่เสร็จ
 interface subProcess {
-    x:number[];
-    f:number[];
-    xf:CallableFunction;
-    cf:number[];
-    ci:CallableFunction;
-    w:number[];
-    wx:CallableFunction;
-    sumX:CallableFunction;
-    sumF:CallableFunction;
-    sumXF:CallableFunction;
-    sumW:CallableFunction;
-    sumWX:CallableFunction;
-    meanX:CallableFunction;
-    meanXF:CallableFunction;
+    x: number[];
+    f: number[];
+    xf: CallableFunction;
+    cf: number[];
+    ci: CallableFunction;
+    w: number[];
+    wx: CallableFunction;
+    sumX: CallableFunction;
+    sumF: CallableFunction;
+    sumXF: CallableFunction;
+    sumW: CallableFunction;
+    sumWX: CallableFunction;
+    meanX: CallableFunction;
+    meanXF: CallableFunction;
 
 }
 class Statistics {
@@ -120,134 +121,134 @@ class Statistics {
             x: this.data,
             f: this.frequency,
             cf: this.cumulativeFrequency,
-            xf: (x:number[] = this.midPoint() , f:number[] = this.frequency):number[] => {
-                let array:number[] = [];
-                for(let i in x && f){
+            xf: (x: number[] = this.midPoint(), f: number[] = this.frequency): number[] => {
+                let array: number[] = [];
+                for (let i in x && f) {
                     array.push(x[i] * f[i]);
                 }
                 return array;
             },
             w: this.w,
-            wx: (w:number[] = this.w , x:number[] = this.midPoint()):number[] => {
-                let array:number[] = [];
-                for(let i:number = 0; w.length > i; i++){
+            wx: (w: number[] = this.w, x: number[] = this.midPoint()): number[] => {
+                let array: number[] = [];
+                for (let i: number = 0; w.length > i; i++) {
                     array[i] = w[i] * x[i];
                 }
                 return array;
             },
-            ci: (topEdge: number = 0 , bottomEdge:number = 1):string[] => {
-                const isEven:boolean = this.classInterval.length % 2 === 0;
-                const isOdd:boolean = this.classInterval.length % 2 !== 0;
-                let array:string[] = [];
-                if (isEven){
-                    for (let i: number = 0; i < this.classInterval.length / 2; i++) {                 
+            ci: (topEdge: number = 0, bottomEdge: number = 1): string[] => {
+                const isEven: boolean = this.classInterval.length % 2 === 0;
+                const isOdd: boolean = this.classInterval.length % 2 !== 0;
+                let array: string[] = [];
+                if (isEven) {
+                    for (let i: number = 0; i < this.classInterval.length / 2; i++) {
                         array.push(`${this.classInterval[topEdge]} - ${this.classInterval[bottomEdge]}`)
                         topEdge += 2;
                         bottomEdge += 2;
                     }
-                } else if(isOdd){
+                } else if (isOdd) {
                     throw new Error('ข้อมูลของอันตรภาคชั้นจำนวนข้อมูลทั้งหมดต้องเป็นเลขคู่');
                 }
                 return array;
             },
-            sumX: (x:number[] = this.midPoint()) => x.reduce((prev:number , curren:number):number => prev + curren),
-            sumF: (f:number[] = this.frequency) => f.reduce((prev:number , curren:number):number => prev + curren),
-            sumXF: (x:number[] = this.midPoint() , f:number[] = this.frequency):number => {
-                let c:number =  x.length === f.length  ? 0 : -1;
-                let sum:number = 0;
-                while(c < x.length && c < f.length){
+            sumX: (x: number[] = this.midPoint()) => x.reduce((prev: number, curren: number): number => prev + curren),
+            sumF: (f: number[] = this.frequency) => f.reduce((prev: number, curren: number): number => prev + curren),
+            sumXF: (x: number[] = this.midPoint(), f: number[] = this.frequency): number => {
+                let c: number = x.length === f.length ? 0 : -1;
+                let sum: number = 0;
+                while (c < x.length && c < f.length) {
                     sum += x[c] * f[c];
                     c++;
                 }
                 return sum;
             },
-            sumW: (w:number[] = this.w):number => w.reduce((prev:number , curren:number) => prev + curren),
-            sumWX: (w:number[] = this.w , x:number[] = this.midPoint()):number => {
-                let sum:number = 0;
-                for(let i in w && x){
+            sumW: (w: number[] = this.w): number => w.reduce((prev: number, curren: number) => prev + curren),
+            sumWX: (w: number[] = this.w, x: number[] = this.midPoint()): number => {
+                let sum: number = 0;
+                for (let i in w && x) {
                     sum += w[i] * x[i];
                 }
                 return sum;
             },
-            meanX: (x̄:number = 0 , n:number = this.n() , Σx:number = 0):number => {
+            meanX: (x̄: number = 0, n: number = this.n(), Σx: number = 0): number => {
                 Σx = this.subProcess.sumX();
                 x̄ = Σx / n;
                 return x̄;
             },
-            meanXF: (x̄:number = 0 ,  n:number = this.n() , Σxf:number = 0):number => {
+            meanXF: (x̄: number = 0, n: number = this.n(), Σxf: number = 0): number => {
                 Σxf = this.subProcess.sumXF();
                 x̄ = Σxf / n;
                 return x̄;
             },
         }
-        this.showTable = (word: string = '', classInterval: string[] = [], data: (string|number)[] = [], frequency: (string|number)[] = [], cumulativeFrequency: (string|number)[] = [], midPoint: (string|number)[] = [], xf: (string|number)[] = [] , weight: (string|number)[] = [] , wx: (string|number)[] = [] , MD: (string|number)[] = []
+        this.showTable = (word: string = '', classInterval: string[] = [], data: (string | number)[] = [], frequency: (string | number)[] = [], cumulativeFrequency: (string | number)[] = [], midPoint: (string | number)[] = [], xf: (string | number)[] = [], weight: (string | number)[] = [], wx: (string | number)[] = [], MD: (string | number)[] = []
         ): void => {
             let table: object[] = [];
-            let status:boolean = false;
-            let summary:string[] = ['\tสรุปข้อมูลในตาราง' , `- จำนวนข้อมูลทั้งหมด = ${this.n()} จำนวน`];
-                /*
-                    - t1 มี ข้อมูล ความถี่ xf
-                    - t2 มี ข้อมูล ความถี่  ความถึ่สะสม xf
-                    - t3 มี อันตรภาคชั้น จุดกึ่งกลางชั้น ความถี่ ความถี่สะสม xf
-                    - t4 มี ข้อมูล ค่าหน่วยกิต wx
-                    - d1 มี ข้อมูล ส่วนเบี่ยงเบนเฉลี่ย
-                */             
-            const tableType = (w: string):(object[]|any)=> {
-                if(this.data.length > 0 && this.data.length !== 0) data = ['ข้อมูล(x)', ...this.data, `Σx = ${this.subProcess.sumX()}`];    
-                if(this.frequency.length > 0 && this.frequency.length) frequency = ['ความถี่(f)', ...this.frequency, `n = ${this.subProcess.sumF()}`];
-                if(this.w.length > 0 && this.w.length){
-                    weight = ['ค่าถ่วงน้ำหนัก(w)' , ...this.w , `Σw = ${this.subProcess.sumW()}`];
-                    wx = [...this.subProcess.wx() , `Σwx = ${this.subProcess.sumWX()}`];
-                    wx.unshift('ข้อมูล x ค่าถ่วงน้ำหนัก(wx)');   
+            let status: boolean = false;
+            let summary: string[] = ['\tสรุปข้อมูลในตาราง', `- จำนวนข้อมูลทั้งหมด = ${this.n()} จำนวน`];
+            /*
+                - t1 มี ข้อมูล ความถี่ xf
+                - t2 มี ข้อมูล ความถี่  ความถึ่สะสม xf
+                - t3 มี อันตรภาคชั้น จุดกึ่งกลางชั้น ความถี่ ความถี่สะสม xf
+                - t4 มี ข้อมูล ค่าหน่วยกิต wx
+                - d1 มี ข้อมูล ส่วนเบี่ยงเบนเฉลี่ย
+            */
+            const tableType = (w: string): (object[] | any) => {
+                if (this.data.length > 0 && this.data.length !== 0) data = ['ข้อมูล(x)', ...this.data, `Σx = ${this.subProcess.sumX()}`];
+                if (this.frequency.length > 0 && this.frequency.length) frequency = ['ความถี่(f)', ...this.frequency, `n = ${this.subProcess.sumF()}`];
+                if (this.w.length > 0 && this.w.length) {
+                    weight = ['ค่าถ่วงน้ำหนัก(w)', ...this.w, `Σw = ${this.subProcess.sumW()}`];
+                    wx = [...this.subProcess.wx(), `Σwx = ${this.subProcess.sumWX()}`];
+                    wx.unshift('ข้อมูล x ค่าถ่วงน้ำหนัก(wx)');
                 }
                 cumulativeFrequency = ['ความถี่สะสม(cf)', ...this.cumulativeFrequency, ' - '];
-                classInterval = ['อันตรภาคชั้น(c)' , ...this.subProcess.ci() , 'รวม'];
+                classInterval = ['อันตรภาคชั้น(c)', ...this.subProcess.ci(), 'รวม'];
                 midPoint = ['จุดกึ่งกลางชั้น(x)', ...this.midPoint(), `Σx = ${this.subProcess.sumX()}`];
-                xf = [...this.subProcess.xf() , `Σxf = ${this.subProcess.sumXF()}`];
+                xf = [...this.subProcess.xf(), `Σxf = ${this.subProcess.sumXF()}`];
                 xf.unshift('ข้อมูล x ความถี่(xf)');
-                
-                if(typeof w === "string"){
-                    status = !status; 
-                    if (w === ''){
-                        if(this.data.length > 0 ){
+
+                if (typeof w === "string") {
+                    status = !status;
+                    if (w === '') {
+                        if (this.data.length > 0) {
                             for (let a = 0; a <= this.data.length + 1; a++) {
-                                table.push({ data: data[a]}); 
+                                table.push({ data: data[a] });
                             }
                         } else {
                             for (let a = 0; a <= this.frequency.length + 1; a++) {
-                                table.push({ classInterval: classInterval[a] , midPoint: midPoint[a]})
+                                table.push({ classInterval: classInterval[a], midPoint: midPoint[a] })
                             }
                         }
                         summary.push(`- ค่าเฉลี่ยเลขคณิต ≈ ${this.subProcess.meanX()} = ${this.subProcess.meanX().toFixed(2)}`)
-                    } else if(w === 't1'.toUpperCase() || w === 't1'.toLowerCase()){
+                    } else if (w === 't1'.toUpperCase() || w === 't1'.toLowerCase()) {
                         for (let b = 0; b <= this.data.length + 1; b++) {
-                            table.push({ data: data[b], frequency: frequency[b], xf:xf[b] })
+                            table.push({ data: data[b], frequency: frequency[b], xf: xf[b] })
                         }
                         summary.push(`- ค่าเฉลี่ยลขคณิต ≈ ${this.subProcess.meanXF()} = ${this.subProcess.meanXF().toFixed(2)}`)
-                    } else if(w === 't2'.toUpperCase() || w === 't2'.toLowerCase()){
+                    } else if (w === 't2'.toUpperCase() || w === 't2'.toLowerCase()) {
                         for (let c = 0; c <= this.data.length + 1; c++) {
-                            table.push({ data: data[c], frequency: frequency[c], cumulativeFrequency:cumulativeFrequency[c] , xf:xf[c] })
+                            table.push({ data: data[c], frequency: frequency[c], cumulativeFrequency: cumulativeFrequency[c], xf: xf[c] })
                         }
-                    } else if(w === 't3'.toUpperCase() || w === 't3'.toLowerCase()){
+                    } else if (w === 't3'.toUpperCase() || w === 't3'.toLowerCase()) {
                         for (let d = 0; d <= (this.classInterval.length / 2) + 1; d++) {
-                            table.push({ classInterval: classInterval[d], midPoint: midPoint[d], frequency: frequency[d], cumulativeFrequency: cumulativeFrequency[d] , xf: xf[d]})
+                            table.push({ classInterval: classInterval[d], midPoint: midPoint[d], frequency: frequency[d], cumulativeFrequency: cumulativeFrequency[d], xf: xf[d] })
                         }
-                    } else if(w === 't4'.toUpperCase() || w === 't4'.toLowerCase()){
-                        for (let e = 0; e <= this.w.length  + 1; e++) {
-                            table.push({  data: data[e] , weight: weight[e] , wx: wx[e] })
+                    } else if (w === 't4'.toUpperCase() || w === 't4'.toLowerCase()) {
+                        for (let e = 0; e <= this.w.length + 1; e++) {
+                            table.push({ data: data[e], weight: weight[e], wx: wx[e] })
                         }
-                    } else if(w === 'd1'.toUpperCase() || w === 'd1'.toLowerCase()){
-    
-                    } else if(w === 'd2'.toUpperCase() || w === 'd2'.toLowerCase()){
-    
-                    } else if(w === 'd3'.toUpperCase() || w === 'd3'.toLowerCase()){
-    
+                    } else if (w === 'd1'.toUpperCase() || w === 'd1'.toLowerCase()) {
+
+                    } else if (w === 'd2'.toUpperCase() || w === 'd2'.toLowerCase()) {
+
+                    } else if (w === 'd3'.toUpperCase() || w === 'd3'.toLowerCase()) {
+
                     }
                     else {
                         status = false;
-                        const typeT:string[] = ['t1' , 't2' , 't3' , 't4' , 'd1' , 'd2' , 'd3' , 'd4'];
-                        const check:string = w;
-                        const textError:string = `เกิดข้อผิดพลาดขึ้นโปรดทำตามคำแนะนำหล่านี้!
+                        const typeT: string[] = ['t1', 't2', 't3', 't4', 'd1', 'd2', 'd3', 'd4'];
+                        const check: string = w;
+                        const textError: string = `เกิดข้อผิดพลาดขึ้นโปรดทำตามคำแนะนำหล่านี้!
                         * รหัสชนิดตาราง (${check}) นั้นไม่มีอยู่ในรหัสตารางที่สร้างไว้
                         * รหัสตารางได้แก่ ${typeT.join(' , ')} เป็นต้น
                         - โปรดตรวจสอบข้อมูลให้ถูกต้อง
@@ -255,19 +256,19 @@ class Statistics {
                         - กรอกรหัสชนิดตารางให้ถูกต้อง
                         - หากไม่มีข้อมูลบางชนิดให้ใส่เป็น array เปล่า []`;
                         return textError;
-                    }            
-                return table;
+                    }
+                    return table;
                 } else {
-                return 'โปรดใส่ข้อมูลที่เป็นชนิดข้อความเท่านั้น'
+                    return 'โปรดใส่ข้อมูลที่เป็นชนิดข้อความเท่านั้น'
+                }
             }
-        } 
             try {
                 console.table(tableType(word));
-            } catch(err:unknown){
+            } catch (err: unknown) {
                 throw err;
             } finally {
-                if(status) {
-                    summary.forEach((inx:string) => console.log(inx))
+                if (status) {
+                    summary.forEach((inx: string) => console.log(inx))
                 }
             }
         }
