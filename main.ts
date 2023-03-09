@@ -2,12 +2,12 @@
 // ts-node main.ts
 // tsc main.ts
 
-/* newVersion 0.0.2 
-    เริ่ม: (23/2/2566) 
-    เสร็จ:    
+/* newVersion 0.0.2
+    เริ่ม: (23/2/2566)
+    เสร็จ:
                 อัปเดตใหม่
     - แก้ไขชื่อ methods และ property ใหม่
-    - มี private object ที่เก็บค่าข้อมูลไว้ช่วยเหลือในการคำนวณข้อมูลใน public methods นำไปใช้งาน    
+    - มี private object ที่เก็บค่าข้อมูลไว้ช่วยเหลือในการคำนวณข้อมูลใน public methods นำไปใช้งาน
     - ปรับ logic code ในบางส่วน
     - การ return ของ methods ท้งหมดจะ return ได้ 2 ค่าคือ ทศนิยมจริง(ทศนิยมไม่รู้จบ) กับ ทศนิยม 2 ตำแหน่ง(ปัดขึ้นและปัดลง)
     - เพิ่มการแสดงข้อมูลในส่วนตารางโดยต้องมีการรับค่าค่า parameter จากผู้ใช้งาน
@@ -55,7 +55,7 @@ class Statistics {
         xi: number[] = [], // parameter1 ข้อมูล
         fi: number[] = [], // parameter2 ความถี่
         ci: number[] = [], // parameter3 อัตรภาคชั้น
-        wi: number[] = [], // parameter4 หน่วยกิต 
+        wi: number[] = [], // parameter4 หน่วยกิต
         cf: number[] = [fi[0]], // parameter5 ความถี่สะสม
     ) {
         this.classInterval = ci;
