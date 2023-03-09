@@ -10,7 +10,7 @@
     - มี private object ที่เก็บค่าข้อมูลไว้ช่วยเหลือในการคำนวณข้อมูลใน public methods นำไปใช้งาน    
     - ปรับ logic code ในบางส่วน
     - การ return ของ methods ท้งหมดจะ return ได้ 2 ค่าคือ ทศนิยมจริง(ทศนิยมไม่รู้จบ) กับ ทศนิยม 2 ตำแหน่ง(ปัดขึ้นและปัดลง)
-    - เพิ่มการแสดงข้อมูลในส่วนตารางโดยต้องมีการรับค่าค่า parameter จากผู้ใช้งาน
+    - เพิ่มการแสดงข้อมูลในส่วนตาราง
 */
 
 // ยังทำไม่เสร็จ
@@ -27,9 +27,29 @@ interface subProcess {
     sumXF: CallableFunction;
     sumW: CallableFunction;
     sumWX: CallableFunction;
+    sumMDX: CallableFunction;
+    sumMDX2: CallableFunction;
+    sumMDXF: CallableFunction;
+    sumSDX: CallableFunction;
+    sumSDXF: CallableFunction;
+    sumSD2: CallableFunction;
+    sumFSD: CallableFunction;
+    sumFSD2: CallableFunction;
     meanX: CallableFunction;
     meanXF: CallableFunction;
-
+    meanMDX: CallableFunction;
+    meanMDXF: CallableFunction;
+    meanWX: CallableFunction;
+    meanSDX: CallableFunction;
+    meanSDXF: CallableFunction;
+    arrayMDX: CallableFunction;
+    arrayMDX2: CallableFunction;
+    arrayMDXF: CallableFunction;
+    arraySDX: CallableFunction;
+    arraySDX2: CallableFunction;
+    arraySDXF: CallableFunction;
+    arrayFSD: CallableFunction;
+    arrayFSD2: CallableFunction;
 }
 class Statistics {
     public classInterval: number[];
@@ -51,13 +71,28 @@ class Statistics {
     public showWeignt: Function;
     public showWidth: Function;
     public showTable: Function;
+    private haveData: boolean;
+    private notHaveData: boolean;
+    private haveFrequency: boolean;
+    private notHaveFrequency: boolean;
+    private haveClassInterval: boolean;
+    private notHaveClassInterval: boolean;
+    private haveWeight: boolean;
+    private notHaveWeight: boolean;
+    private completeData: boolean;
+    private notCompleteData: boolean;
+    private isEven: boolean;
+    private isOdd: boolean;
     public constructor(
-        xi: number[] = [], // parameter1 ข้อมูล
-        fi: number[] = [], // parameter2 ความถี่
-        ci: number[] = [], // parameter3 อัตรภาคชั้น
-        wi: number[] = [], // parameter4 หน่วยกิต 
-        cf: number[] = [fi[0]], // parameter5 ความถี่สะสม
+        /* parameter ที่ต้องรับค่ามาจากผู้ใช้งาน */
+        xi: number[] = [],      // param1 ข้อมูล
+        fi: number[] = [],      // param2 ความถี่
+        ci: number[] = [],      // param3 อัตรภาคชั้น
+        wi: number[] = [],      // param4 หน่วยกิต 
+        cf: number[] = [fi[0]], // param5 ความถี่สะสม
     ) {
+
+        /* แบ่งชนิดข้อมูลในแต่ละ property */
         this.classInterval = ci;
         this.data = xi;
         this.sortData = [...this.data].sort((x: number, y: number) => x - y);
@@ -95,6 +130,22 @@ class Statistics {
         this.cumulativeFrequency = this.cumulative();
         this.w = wi;
         this.i = ci[1] - ci[0] + 1;
+
+        /* เงื่อนไขในการควบคุม */
+        this.haveData = this.data.length > 0 && this.data.length !== 0;
+        this.notHaveData = this.data.length === 0;
+        this.haveFrequency = this.frequency.length > 0 && this.frequency.length !== 0;
+        this.notHaveFrequency = this.frequency.length === 0;
+        this.haveClassInterval = this.classInterval.length > 0 && this.classInterval.length !== 0;
+        this.notHaveClassInterval = this.classInterval.length === 0;
+        this.completeData = this.data.length / 2 === this.frequency.length / 2 || this.w.length / 2 === this.data.length / 2 || this.frequency.length / 2 === this.classInterval.length / 4;
+        this.notCompleteData = !this.completeData;
+        this.haveWeight = this.w.length > 0 && this.w.length !== 0;
+        this.notHaveWeight = this.w.length === 0;
+        this.isEven = this.data.length % 2 === 0;
+        this.isOdd = this.data.length % 2 !== 0;
+
+        /* แสดงผลข้อมูล */
         this.showData = (oldInformation: string = `ข้อมูลเดิมคือ ${this.data.join(',')}`, newInformation: string = `เรียงข้อมูลชุดใหม่ได้ ${this.sortData.join(',')}`): string => {
             if (this.data.length == 0) throw new Error('ไม่มีข้อมูล');
             return `${oldInformation}\n${newInformation}`;
@@ -108,7 +159,6 @@ class Statistics {
         this.showWeignt = (): string => `ค่าน้ำหนักหรือหน่วยกิต ${this.w.join(' ')}`;
         this.showMiddle = (): string => `จุดกึ่งกลางอันตรภาคชั้นคือ ${this.midPoint().join(' ')}`;
         this.showClassInterval = (topEdge: number = 0, bottomEdge: number = 1): void => {
-            // แสดงข้อมูลให้ใช้เป็น console.table()
             let render: object[] = [{ classInterval: 'อันตรภาคชั้น' }]
             for (let c: number = 0; c < this.classInterval.length / 2; c++) {
                 render.push({ classInterval: `${this.classInterval[topEdge]} - ${this.classInterval[bottomEdge]}` })
@@ -117,6 +167,8 @@ class Statistics {
             }
             console.table(render);
         }
+
+        /* property ไว้ใช้งานใน class */
         this.subProcess = {
             x: this.data,
             f: this.frequency,
@@ -162,13 +214,56 @@ class Statistics {
                 }
                 return sum;
             },
-            sumW: (w: number[] = this.w): number => w.reduce((prev: number, curren: number) => prev + curren),
+            sumW: (w: number[] = this.w): number => w.reduce((prev: number, curren: number):number => prev + curren),
             sumWX: (w: number[] = this.w, x: number[] = this.midPoint()): number => {
                 let sum: number = 0;
                 for (let i in w && x) {
                     sum += w[i] * x[i];
                 }
                 return sum;
+            },
+            sumMDX: (x: number[] = this.midPoint(), x̄: number = this.subProcess.meanX()):number => {
+                let sum: number = 0;
+                for (let xi of x) {
+                    sum += Math.abs(xi - x̄);
+                }
+                return sum;
+            },
+            sumMDX2: (x: number[] = this.midPoint(), x̄: number = this.subProcess.meanXF()):number => {
+                let sum: number = 0;
+                for (let xi of x) {
+                    sum += Math.abs(xi - x̄);
+                }
+                return sum;
+            },
+            sumMDXF: (x: number[] = this.midPoint(), f: number[] = this.frequency, x̄: number = this.subProcess.meanXF()):number => {
+                let sum: number = 0;
+                for (let i in x) {
+                    sum += f[i] * (Math.abs(x[i] - x̄));
+                }
+                return sum;
+            },
+            sumSD2: (x: number[] = this.midPoint(), Σx: number = 0):number => {
+                Σx = this.subProcess.arraySDX2().reduce((prev: number, curren: number) => prev + curren);
+                return Σx;
+            },
+            sumSDX: (x: number[] = this.midPoint(), Σx: number = 0):number => {
+                Σx = this.subProcess.arraySDX().reduce((prev: number, curren: number) => prev + curren);
+                return Σx;
+            },
+            sumFSD: (Σx: number = 0):number => {
+                Σx = this.subProcess.arrayFSD().reduce((prev:number , curren:number):number => prev + curren);
+                return Σx;
+            },
+            sumFSD2: (Σx:number = 0):number => {
+                Σx = this.subProcess.arrayFSD2().reduce((prev:number , curren:number):number => prev + curren);
+                return Σx;
+            },
+            sumSDXF: (Σx:number = 0):(number|undefined) => {
+                if(this.haveData && this.haveFrequency){
+                    Σx = this.subProcess.arraySDXF().reduce((prev:number , curren:number):number => prev + curren);
+                    return Σx;
+                } else return Σx;
             },
             meanX: (x̄: number = 0, n: number = this.n(), Σx: number = 0): number => {
                 Σx = this.subProcess.sumX();
@@ -180,73 +275,207 @@ class Statistics {
                 x̄ = Σxf / n;
                 return x̄;
             },
+            meanWX: (x̄: number = 0, Σw: number = this.subProcess.sumW(), Σwx: number = 0): number => {
+                Σwx = this.subProcess.sumWX();
+                x̄ = Σwx / Σw;
+                return x̄;
+            },
+            meanMDX: (MDX: number = 0, n: number = this.n()):number => {
+                MDX = this.subProcess.sumMDX() / n;
+                return MDX;
+            },
+            meanMDXF: (MDXF: number = 0, n: number = this.n()):number => {
+                MDXF = this.subProcess.sumMDXF() / n;
+                return MDXF;
+            },
+            meanSDX: (SDX: number = 0, n: number = this.n(), Σx: number = 0):number => {
+                Σx = this.subProcess.sumSDX();
+                SDX = Math.sqrt(Σx / n);
+                return SDX;
+            },
+            meanSDXF: (SDXF:number = 0 ,n: number = this.n(), Σx: number = 0):number => {
+                Σx = this.subProcess.sumSDXF();
+                SDXF = Math.sqrt(Σx / n);
+                return SDXF;
+            },
+            arrayMDX: (array: number[] = [], x: number[] = this.midPoint()):number[] => {
+                for (let xi of x) {
+                    let el: number = Math.abs(xi - this.subProcess.meanX());
+                    array.push(el);
+                }
+                return array;
+            },
+            arrayMDX2: (array: number[] = [], x: number[] = this.midPoint()):number[] => {
+                for (let xi of x) {
+                    let el: number = Math.abs(xi - this.subProcess.meanXF());
+                    array.push(el);
+                }
+                return array;
+            },
+            arrayMDXF: (array: number[] = [], x: number[] = this.midPoint(), f: number[] = this.frequency):number[] => {
+                for (let i in x) {
+                    array.push(f[i] * Math.abs(x[i] - this.subProcess.meanXF()));
+                }
+                return array;
+            },
+            arraySDX2: (array: number[] = [], x: number[] = this.midPoint()):number[] => {
+                for (let xi of x) {
+                    array.push(xi - this.subProcess.meanX());
+                }
+                return array;
+            },
+            arraySDX: (array: number[] = []):number[] => {
+                this.subProcess.arraySDX2().map((item: number) => {
+                    array.push(Math.pow(item, 2));
+                })
+                return array;
+            },
+            arrayFSD: (array:number[] = [] , x:number[] = this.midPoint()):number[] => {
+                x.map((xi:number) => {
+                    array.push(xi - this.subProcess.meanXF()); 
+                })
+                return array;
+            },
+            arrayFSD2: (array:number[] = []):number[] => {
+                this.subProcess.arrayFSD().map((item: number) => {
+                    array.push(item ** 2);
+                })
+                return array;
+            },
+            arraySDXF: (array: number[] = [] , f:number[] = this.frequency):number[] => {
+                for (let i in f){
+                    array.push(f[i] * this.subProcess.arrayFSD2()[i]); 
+                }
+                return array;
+            }
         }
-        this.showTable = (word: string = '', classInterval: string[] = [], data: (string | number)[] = [], frequency: (string | number)[] = [], cumulativeFrequency: (string | number)[] = [], midPoint: (string | number)[] = [], xf: (string | number)[] = [], weight: (string | number)[] = [], wx: (string | number)[] = [], MD: (string | number)[] = []
-        ): void => {
+
+        // ตาราง
+        this.showTable = (word: string, classInterval: string[] = [], data: (string | number)[] = [], frequency: (string | number)[] = [], cumulativeFrequency: (string | number)[] = [], midPoint: (string | number)[] = [], xf: (string | number)[] = [], weight: (string | number)[] = [], wx: (string | number)[] = [], MD: (string | number)[] = []
+            , fMD: (string | number)[] = [], MD2: (string | number)[] = [], SD: (string | number)[] = [], SD2: (string | number)[] = [] , FSD:(string | number)[] = [] , FSD2:(string | number)[] = []
+            , SDXF:(string | number)[] = []): void => {
             let table: object[] = [];
             let status: boolean = false;
             let summary: string[] = ['\tสรุปข้อมูลในตาราง', `- จำนวนข้อมูลทั้งหมด = ${this.n()} จำนวน`];
             /*
-                - t1 มี ข้อมูล ความถี่ xf
-                - t2 มี ข้อมูล ความถี่  ความถึ่สะสม xf
-                - t3 มี อันตรภาคชั้น จุดกึ่งกลางชั้น ความถี่ ความถี่สะสม xf
-                - t4 มี ข้อมูล ค่าหน่วยกิต wx
-                - d1 มี ข้อมูล ส่วนเบี่ยงเบนเฉลี่ย
+                        รหัสชนิดของตารางที่แสดงผล
+                - t1 แสดง -> ข้อมูล , ความถี่ , ข้อมูล x ความถี่ 
+                - t2 แสดง -> ข้อมูล , ความถี่ , ความถึ่สะสม , ข้อมูล x ความถี่ 
+                - t3 แสดง -> อันตรภาคชั้น , จุดกึ่งกลางชั้น , ความถี่ , ความถี่สะสม , ข้อมูล x ความถี่ 
+                - t4 แสดง -> ข้อมูล , ค่าหน่วยกิต , ค่าหน่วยกิต x ข้อมูล
+                - t5 แสดง -> อันตรภาคชั้น , จุดกึ่งกลางชั้น , ข้อมูล , ความถี่ , ข้อมูล x ความถี่ , ส่วนเบี่ยงเบนเฉลี่ย
+                - t6 แสดง -> อันตรภาคชั้น , จุดกึ่งกลางชั้น , ข้อมูล , ความถี่ , ข้อมูล x ความถี่ , ส่วนเบี่ยงมาตราฐาน
             */
             const tableType = (w: string): (object[] | any) => {
-                if (this.data.length > 0 && this.data.length !== 0) data = ['ข้อมูล(x)', ...this.data, `Σx = ${this.subProcess.sumX()}`];
-                if (this.frequency.length > 0 && this.frequency.length) frequency = ['ความถี่(f)', ...this.frequency, `n = ${this.subProcess.sumF()}`];
-                if (this.w.length > 0 && this.w.length) {
-                    weight = ['ค่าถ่วงน้ำหนัก(w)', ...this.w, `Σw = ${this.subProcess.sumW()}`];
+                // กำหนดค่าต่างๆให้ default parameter
+                if (this.haveData) data = ['ข้อมูล', ...this.data, `Σx = ${this.subProcess.sumX()}`];
+                if (this.haveFrequency) frequency = ['ความถี่', ...this.frequency, `n = ${this.subProcess.sumF()}`];
+                if (this.haveWeight) {
+                    weight = ['ค่าถ่วงน้ำหนัก', ...this.w, `Σw = ${this.subProcess.sumW()}`];
                     wx = [...this.subProcess.wx(), `Σwx = ${this.subProcess.sumWX()}`];
-                    wx.unshift('ข้อมูล x ค่าถ่วงน้ำหนัก(wx)');
+                    wx.unshift('ข้อมูล x ค่าถ่วงน้ำหนัก');
                 }
-                cumulativeFrequency = ['ความถี่สะสม(cf)', ...this.cumulativeFrequency, ' - '];
-                classInterval = ['อันตรภาคชั้น(c)', ...this.subProcess.ci(), 'รวม'];
-                midPoint = ['จุดกึ่งกลางชั้น(x)', ...this.midPoint(), `Σx = ${this.subProcess.sumX()}`];
+                cumulativeFrequency = ['ความถี่สะสม', ...this.cumulativeFrequency, ' - '];
+                classInterval = ['อันตรภาคชั้น', ...this.subProcess.ci(), 'รวม'];
+                midPoint = ['จุดกึ่งกลางชั้น', ...this.midPoint(), `Σx = ${this.subProcess.sumX()}`];
                 xf = [...this.subProcess.xf(), `Σxf = ${this.subProcess.sumXF()}`];
-                xf.unshift('ข้อมูล x ความถี่(xf)');
+                xf.unshift('ข้อมูล x ความถี่');
+                MD = ['|ข้อมูล - ค่าเฉลี่ย|', ...this.subProcess.arrayMDX(), `Σ|x - x̄| = ${this.subProcess.sumMDX()}`];
+                MD2 = ['|ข้อมูล - ค่าเฉลี่ย|', ...this.subProcess.arrayMDX2(), `Σ|x - x̄| = ${this.subProcess.sumMDX2()}`];
+                fMD = ['ความถี่|ข้อมูล - ค่าเฉลี่ย|', ...this.subProcess.arrayMDXF(), `Σf|x - x̄| = ${this.subProcess.sumMDXF()}`];
+                SD2 = ['ข้อมูล - ค่าเฉลี่ย', ...this.subProcess.arraySDX2(), `Σ(x - x̄) = ${this.subProcess.sumSD2()}`];
+                SD = ['(ข้อมูล - ค่าเฉลี่ย)^2', ...this.subProcess.arraySDX(), `Σ(x - x̄)^2 = ${this.subProcess.sumSDX()}`];
+                FSD = ['ข้อมูล - ค่าเฉลี่ย' , ...this.subProcess.arrayFSD() , `Σ(x - x̄) = ${this.subProcess.sumFSD()}`];
+                FSD2 = ['(ข้อมูล - ค่าเฉลี่ย)^2',...this.subProcess.arrayFSD2() , `Σ(x - x̄)^2 = ${this.subProcess.sumFSD2()}`];
+                SDXF = ['ความถี่(ข้อมูล - ค่าเฉลี่ย)^2', ...this.subProcess.arraySDXF() , `Σf(x - x̄)^2 = ${this.subProcess.sumSDXF()}`];
 
                 if (typeof w === "string") {
                     status = !status;
                     if (w === '') {
-                        if (this.data.length > 0) {
-                            for (let a = 0; a <= this.data.length + 1; a++) {
-                                table.push({ data: data[a] });
+                        if (this.haveData && this.notHaveClassInterval) {
+                            for (let i:number = 0; i <= this.data.length + 1; i++) {
+                                table.push({ x: data[i] });
                             }
                         } else {
-                            for (let a = 0; a <= this.frequency.length + 1; a++) {
-                                table.push({ classInterval: classInterval[a], midPoint: midPoint[a] })
+                            for (let i:number = 0; i <= (this.classInterval.length / 2 )+ 1; i++) {
+                                table.push({ ci: classInterval[i], x: midPoint[i] });
                             }
                         }
-                        summary.push(`- ค่าเฉลี่ยเลขคณิต ≈ ${this.subProcess.meanX()} = ${this.subProcess.meanX().toFixed(2)}`)
+                        summary.push(`- ค่าเฉลี่ยเลขคณิต ≈ ${this.subProcess.meanX()} = ${this.subProcess.meanX().toFixed(2)}`);
+
                     } else if (w === 't1'.toUpperCase() || w === 't1'.toLowerCase()) {
-                        for (let b = 0; b <= this.data.length + 1; b++) {
-                            table.push({ data: data[b], frequency: frequency[b], xf: xf[b] })
+                        for (let i:number = 0; i <= this.data.length + 1; i++) {
+                            table.push({ x: data[i], f: frequency[i], xf: xf[i] });
                         }
-                        summary.push(`- ค่าเฉลี่ยลขคณิต ≈ ${this.subProcess.meanXF()} = ${this.subProcess.meanXF().toFixed(2)}`)
+                        summary.push(`- ค่าเฉลี่ยเลขคณิต ≈ ${this.subProcess.meanXF()} = ${this.subProcess.meanXF().toFixed(2)}`);
+
                     } else if (w === 't2'.toUpperCase() || w === 't2'.toLowerCase()) {
-                        for (let c = 0; c <= this.data.length + 1; c++) {
-                            table.push({ data: data[c], frequency: frequency[c], cumulativeFrequency: cumulativeFrequency[c], xf: xf[c] })
+                        for (let i:number = 0; i <= this.data.length + 1; i++) {
+                            table.push({ x: data[i], f: frequency[i], cf: cumulativeFrequency[i], xf: xf[i] });
                         }
+                        summary.push(`- ค่าเฉลี่ยเลขคณิต ≈ ${this.subProcess.meanXF()} = ${this.subProcess.meanXF().toFixed(2)}`);
+
                     } else if (w === 't3'.toUpperCase() || w === 't3'.toLowerCase()) {
-                        for (let d = 0; d <= (this.classInterval.length / 2) + 1; d++) {
-                            table.push({ classInterval: classInterval[d], midPoint: midPoint[d], frequency: frequency[d], cumulativeFrequency: cumulativeFrequency[d], xf: xf[d] })
+                        for (let i:number = 0; i <= (this.classInterval.length / 2) + 1; i++) {
+                            table.push({ ci: classInterval[i], x: midPoint[i], f: frequency[i], cf: cumulativeFrequency[i], xf: xf[i] });
                         }
+                        summary.push(`- ค่าเฉลี่ยเลขคณิต ≈ ${this.subProcess.meanXF()} = ${this.subProcess.meanXF().toFixed(2)}`);
+
                     } else if (w === 't4'.toUpperCase() || w === 't4'.toLowerCase()) {
-                        for (let e = 0; e <= this.w.length + 1; e++) {
-                            table.push({ data: data[e], weight: weight[e], wx: wx[e] })
+                        for (let i:number = 0; i <= this.w.length + 1; i++) {
+                            table.push({ x: data[i], w: weight[i], wx: wx[i] });
                         }
-                    } else if (w === 'd1'.toUpperCase() || w === 'd1'.toLowerCase()) {
+                        summary.push(`- ค่าเฉลี่ยเลขคณิต ≈ ${this.subProcess.meanWX()} = ${this.subProcess.meanWX().toFixed(2)}`);
 
-                    } else if (w === 'd2'.toUpperCase() || w === 'd2'.toLowerCase()) {
+                    } else if (w === 't5'.toUpperCase() || w === 't5'.toLowerCase()) {
+                        if (this.haveData && this.notHaveFrequency) {
+                            for (let i: number = 0; i <= this.data.length + 1; i++) {
+                                table.push({ x: data[i], '|x - x̄|': MD[i] });
+                            }
+                            summary.push(`- ค่าเฉลี่ยเลขคณิต ≈ ${this.subProcess.meanX()} = ${this.subProcess.meanX().toFixed(2)}`
+                                , `- ส่วนเบี่ยงเบนเฉลี่ย ≈ ${this.subProcess.meanMDX()} = ${this.subProcess.meanMDX().toFixed(2)}`);
 
-                    } else if (w === 'd3'.toUpperCase() || w === 'd3'.toLowerCase()) {
+                        } else if (this.notHaveData && this.haveFrequency && this.haveClassInterval) {
+                            for (let i:number = 0; i <= (this.classInterval.length / 2) + 1; i++) {
+                                table.push({ ci: classInterval[i], x: midPoint[i], f: frequency[i], xf: xf[i], '|x - x̄|': MD2[i], 'f|x - x̄|': fMD[i] });
+                            }
+                            summary.push(`- ค่าเฉลี่ยเลขคณิต ≈ ${this.subProcess.meanXF()} = ${this.subProcess.meanXF().toFixed(2)}`
+                                , `- ส่วนเบี่ยงเบนเฉลี่ย ≈ ${this.subProcess.meanMDXF()} = ${this.subProcess.meanMDXF().toFixed(2)}`);
 
-                    }
-                    else {
+                        } else {
+                            for (let i: number = 0; i <= this.data.length + 1; i++) {
+                                table.push({ x: data[i], f: frequency[i], xf: xf[i], '|x - x̄|': MD2[i], 'f|x - x̄|': fMD[i] });
+                            }
+                            summary.push(`- ค่าเฉลี่ยเลขคณิต ≈ ${this.subProcess.meanXF()} = ${this.subProcess.meanXF().toFixed(2)}`
+                                , `- ส่วนเบี่ยงเบนเฉลี่ย ≈ ${this.subProcess.meanMDXF()} = ${this.subProcess.meanMDXF().toFixed(2)}`);
+                        }
+
+                    } else if (w === 't6'.toUpperCase() || w === 't6'.toLowerCase()) {
+                        if (this.haveData && this.notHaveFrequency) {
+                            for (let i: number = 0; i <= this.data.length + 1; i++) {
+                                table.push({ x: data[i], 'x - x̄': SD2[i], '(x - x̄)^2': SD[i] });
+                            }
+                            summary.push(`- ค่าเฉลี่ยเลขคณิต ≈ ${this.subProcess.meanX()} = ${this.subProcess.meanX().toFixed(2)}`
+                                , `- ส่วนเบี่ยงมาตราฐาน ≈ ${this.subProcess.meanSDX()} = ${this.subProcess.meanSDX().toFixed(2)}`);
+                        } else if (this.haveData && this.haveFrequency) {
+                            for (let i: number = 0; i <= this.data.length + 1; i++) {
+                                table.push({ x: data[i] , f: frequency[i], xf: xf[i], 'x - x̄': FSD2[i], '(x - x̄)^2': FSD[i] 
+                            , 'f(x - x̄)^2': SDXF[i] });
+                            }
+                            summary.push(`- ค่าเฉลี่ยเลขคณิต ≈ ${this.subProcess.meanXF()} = ${this.subProcess.meanXF().toFixed(2)}`
+                                , `- ส่วนเบี่ยงเบนเฉลี่ย ≈ ${this.subProcess.meanSDXF()} = ${this.subProcess.meanSDXF().toFixed(2)}`);
+
+                        } else if(this.haveClassInterval && this.haveFrequency && this.notHaveData){
+                            for (let i:number = 0; i <= (this.classInterval.length / 2) + 1; i++) {
+                                table.push({ ci: classInterval[i], x: midPoint[i], f: frequency[i], xf: xf[i], 'x - x̄': FSD[i], '(x - x̄)^2': FSD2[i] 
+                            , 'f(x - x̄)^2': SDXF[i]});
+                            }
+                            summary.push(`- ค่าเฉลี่ยเลขคณิต ≈ ${this.subProcess.meanXF()} = ${this.subProcess.meanXF().toFixed(2)}`
+                                , `- ส่วนเบี่ยงเบนเฉลี่ย ≈ ${this.subProcess.meanSDXF()} = ${this.subProcess.meanSDXF().toFixed(2)}`);
+                        }
+                    } else {
                         status = false;
-                        const typeT: string[] = ['t1', 't2', 't3', 't4', 'd1', 'd2', 'd3', 'd4'];
+                        const typeT: string[] = ['t1', 't2', 't3', 't4', 't5', 't6', 't7', 't8'];
                         const check: string = w;
                         const textError: string = `เกิดข้อผิดพลาดขึ้นโปรดทำตามคำแนะนำหล่านี้!
                         * รหัสชนิดตาราง (${check}) นั้นไม่มีอยู่ในรหัสตารางที่สร้างไว้
@@ -259,7 +488,8 @@ class Statistics {
                     }
                     return table;
                 } else {
-                    return 'โปรดใส่ข้อมูลที่เป็นชนิดข้อความเท่านั้น'
+                    if (typeof word === 'undefined' || word === undefined) return 'โปรดระบุรหัสชนิดของตาราง!';
+                    else return 'โปรดใส่ข้อมูลที่เป็นชนิดข้อความเท่านั้น!';
                 }
             }
             try {
@@ -268,12 +498,11 @@ class Statistics {
                 throw err;
             } finally {
                 if (status) {
-                    summary.forEach((inx: string) => console.log(inx))
+                    summary.forEach((inx: string):void => console.log(inx));
                 }
             }
         }
     }
-
 
     public mean = (x̄: number = 0, x: number[] = this.sortData, Σxi: number = 0, n: number = this.n(), f: number[] = this.frequency, Σxifi: number = 0, w: number[] = this.w, Σwixi: number = 0, Σwi: number = 0): string => {
         if (this.data.length === 0) x = this.midPoint();
@@ -299,8 +528,8 @@ class Statistics {
     }
 
     public median = (Med: number = 0, n: number = this.n(), l: number = 0, i: number = this.i, x: number[] = this.sortData, f: number[] = this.frequency, Σfl: number = 0, fm: number = 0, positionMed: any = 0): (string | Error) => {
-        if (this.data.length == 0) return new Error('คุณยังไม่ได้ใส่ข้อมูล!');
-        if (x.length > 0 && f.length === 0) {
+        if (this.notHaveData) return new Error('คุณยังไม่ได้ใส่ข้อมูล!');
+        if (this.haveData && this.notHaveFrequency) {
             console.log(this.showData());
             n % 2 !== 0 ? Med = this.sortData[Math.floor(n / 2)] : Med = (this.sortData[Math.floor((n - 1) / 2)] + this.sortData[Math.floor((n + 1) / 2)]) / 2;
             if (n % 2 !== 0) positionMed = Math.ceil(n / 2);
@@ -318,7 +547,7 @@ class Statistics {
                 Med = l + i * ((positionMed - Σfl) / fm);
             }
         }
-        return `ตำแหน่งมัธยฐาน = ${positionMed} \nมัธยฐาน Me = ${Med} \nปัดเป็นทศนิยม 2 ตำแหน่ง = ${Med.toFixed(2)}`;
+        return `ตำแหน่งมัธยฐาน = ${positionMed} \nมัธยฐาน Me = ${Med} `;
     }
 
     public mode = (Mode: number = 0, count: any = {}, max: number = 0, x: number[] = this.sortData, f: number[] = this.frequency, n: number = this.n(), d1: number = 0, d2: number = 0, l: number = 0, i: number = this.i): any => {
@@ -876,7 +1105,7 @@ class Statistics {
             Z = (score - x̄) / S;
             return `ค่ามาตราฐาน Z = ${Z}`;
         } else {
-            throw new Error(`เกิดข้อผิดพลาดขึ้น!\nการส่ง argument ให้ parameter นั้นต้องส่งเป็นตัวเลขเท่านั้น`);
+            throw new Error(`เกิดข้อผิดพลาดขึ้น!\nการส่ง argument ไปให้ parameter นั้นต้องส่งเป็นตัวเลขเท่านั้น`);
         }
     }
 }
