@@ -2,12 +2,12 @@
 // ts-node main.ts
 // tsc main.ts
 
-/* newVersion 0.0.2 
-    เริ่ม: (23/2/2566) 
-    เสร็จ:    
+/* newVersion 0.0.2
+    เริ่ม: (23/2/2566)
+    เสร็จ:
                 อัปเดตใหม่
     - แก้ไขชื่อ methods และ property ใหม่
-    - มี private object ที่เก็บค่าข้อมูลไว้ช่วยเหลือในการคำนวณข้อมูลใน public methods นำไปใช้งาน    
+    - มี private object ที่เก็บค่าข้อมูลไว้ช่วยเหลือในการคำนวณข้อมูลใน public methods นำไปใช้งาน
     - ปรับ logic code ในบางส่วน
     - การ return ของ methods ท้งหมดจะ return ได้ 2 ค่าคือ ทศนิยมจริง(ทศนิยมไม่รู้จบ) กับ ทศนิยม 2 ตำแหน่ง(ปัดขึ้นและปัดลง)
     - เพิ่มการแสดงข้อมูลในส่วนตาราง
@@ -88,7 +88,7 @@ class Statistics {
         xi: number[] = [],      // param1 ข้อมูล
         fi: number[] = [],      // param2 ความถี่
         ci: number[] = [],      // param3 อัตรภาคชั้น
-        wi: number[] = [],      // param4 หน่วยกิต 
+        wi: number[] = [],      // param4 หน่วยกิต
         cf: number[] = [fi[0]], // param5 ความถี่สะสม
     ) {
 
@@ -332,7 +332,7 @@ class Statistics {
             },
             arrayFSD: (array:number[] = [] , x:number[] = this.midPoint()):number[] => {
                 x.map((xi:number) => {
-                    array.push(xi - this.subProcess.meanXF()); 
+                    array.push(xi - this.subProcess.meanXF());
                 })
                 return array;
             },
@@ -344,7 +344,7 @@ class Statistics {
             },
             arraySDXF: (array: number[] = [] , f:number[] = this.frequency):number[] => {
                 for (let i in f){
-                    array.push(f[i] * this.subProcess.arrayFSD2()[i]); 
+                    array.push(f[i] * this.subProcess.arrayFSD2()[i]);
                 }
                 return array;
             }
@@ -359,9 +359,9 @@ class Statistics {
             let summary: string[] = ['\tสรุปข้อมูลในตาราง', `- จำนวนข้อมูลทั้งหมด = ${this.n()} จำนวน`];
             /*
                         รหัสชนิดของตารางที่แสดงผล
-                - t1 แสดง -> ข้อมูล , ความถี่ , ข้อมูล x ความถี่ 
-                - t2 แสดง -> ข้อมูล , ความถี่ , ความถึ่สะสม , ข้อมูล x ความถี่ 
-                - t3 แสดง -> อันตรภาคชั้น , จุดกึ่งกลางชั้น , ความถี่ , ความถี่สะสม , ข้อมูล x ความถี่ 
+                - t1 แสดง -> ข้อมูล , ความถี่ , ข้อมูล x ความถี่
+                - t2 แสดง -> ข้อมูล , ความถี่ , ความถึ่สะสม , ข้อมูล x ความถี่
+                - t3 แสดง -> อันตรภาคชั้น , จุดกึ่งกลางชั้น , ความถี่ , ความถี่สะสม , ข้อมูล x ความถี่
                 - t4 แสดง -> ข้อมูล , ค่าหน่วยกิต , ค่าหน่วยกิต x ข้อมูล
                 - t5 แสดง -> อันตรภาคชั้น , จุดกึ่งกลางชั้น , ข้อมูล , ความถี่ , ข้อมูล x ความถี่ , ส่วนเบี่ยงเบนเฉลี่ย
                 - t6 แสดง -> อันตรภาคชั้น , จุดกึ่งกลางชั้น , ข้อมูล , ความถี่ , ข้อมูล x ความถี่ , ส่วนเบี่ยงมาตราฐาน
@@ -459,7 +459,7 @@ class Statistics {
                                 , `- ส่วนเบี่ยงมาตราฐาน ≈ ${this.subProcess.meanSDX()} = ${this.subProcess.meanSDX().toFixed(2)}`);
                         } else if (this.haveData && this.haveFrequency) {
                             for (let i: number = 0; i <= this.data.length + 1; i++) {
-                                table.push({ x: data[i] , f: frequency[i], xf: xf[i], 'x - x̄': FSD2[i], '(x - x̄)^2': FSD[i] 
+                                table.push({ x: data[i] , f: frequency[i], xf: xf[i], 'x - x̄': FSD2[i], '(x - x̄)^2': FSD[i]
                             , 'f(x - x̄)^2': SDXF[i] });
                             }
                             summary.push(`- ค่าเฉลี่ยเลขคณิต ≈ ${this.subProcess.meanXF()} = ${this.subProcess.meanXF().toFixed(2)}`
@@ -467,7 +467,7 @@ class Statistics {
 
                         } else if(this.haveClassInterval && this.haveFrequency && this.notHaveData){
                             for (let i:number = 0; i <= (this.classInterval.length / 2) + 1; i++) {
-                                table.push({ ci: classInterval[i], x: midPoint[i], f: frequency[i], xf: xf[i], 'x - x̄': FSD[i], '(x - x̄)^2': FSD2[i] 
+                                table.push({ ci: classInterval[i], x: midPoint[i], f: frequency[i], xf: xf[i], 'x - x̄': FSD[i], '(x - x̄)^2': FSD2[i]
                             , 'f(x - x̄)^2': SDXF[i]});
                             }
                             summary.push(`- ค่าเฉลี่ยเลขคณิต ≈ ${this.subProcess.meanXF()} = ${this.subProcess.meanXF().toFixed(2)}`
