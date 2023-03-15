@@ -30,6 +30,6 @@
     },
     "homepage": "https://github.com/VarinCode/stat#readme",
     "devDependencies": {
-        "@types/node": "^18.11.10"
+        "@types/node": "^18.15.3"
     }
 }
