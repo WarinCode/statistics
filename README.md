@@ -8,9 +8,9 @@
 
 เปิด Terminal พิมพ์คำสั่งตามนี้
 
-- `<code>` git clone [https://github.com/VarinCode/statistics.git](https://github.com/VarinCode/statistics.git) `</code>` `<br/>`
-- `<code>` cd statistics `</code><br/>`
-- `<code>` code. `</code>`
+- <code> git clone [https://github.com/VarinCode/statistics.git](https://github.com/VarinCode/statistics.git) </code><br/>
+- <code> cd statistics </code><br/>
+- <code> code. </code>
 
 ### อธิบายการใส่ข้อมูล
 
