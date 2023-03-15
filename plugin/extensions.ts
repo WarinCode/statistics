@@ -9,7 +9,7 @@ class extension extends Statistics{
         for(let i = 0; i < count; i++){
             if (i === 0) topEdge += initialValue + distance;
             array.push(bottomEdge , topEdge);
-            bottomEdge += distance + 1; 
+            bottomEdge += distance + 1;
             topEdge += distance + 1;
         }
         return array;
