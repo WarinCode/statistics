@@ -27,7 +27,7 @@ export default class Extension {
         ((textError: string): void => {
             if (this.DA.length !== this.DB.length) {
                 throw new Error(textError);
-            } 
+            }
             if (arguments[2] && arguments[3]) {
                 if ((this.DA.length / 2 !== 0 && this.FA?.length === 0) || (this.FA?.length !== 0 && this.DA.length === 0)) {
                     throw new Error(textError);
@@ -86,7 +86,7 @@ export default class Extension {
         } else {
             throw new Error('เกิดข้อผิดพลาดขึ้นโปรดลองใหม่อีกครั้ง!');
         }
-        
+
         if (this.frequencyA !== undefined && this.frequencyB !== undefined) {
             return `ข้อมูล A = ${this.dataA.join(' , ')}\nความถี่ A = ${this.frequencyA.join(' , ')}\nความถี่สะสม A = ${new Statistics([] , this.frequencyA , this.dataA).cumulative().join(' , ')}\nข้อมูล B = ${this.dataB.join(' , ')}\nความถี่ B = ${this.frequencyB.join(' , ')}\nความถี่สะสม B = ${new Statistics([] , this.frequencyB, this.dataB).cumulative().join(' , ')}\n${this.composeArticles}`
         } else {
@@ -146,7 +146,7 @@ export default class Extension {
             this.arr = this.convertStringToDecimalNumber(
                 new Statistics([], this.frequencyA, this.dataA).coefficientOfMeanDeviation(),
                 new Statistics([], this.frequencyB, this.dataB).coefficientOfMeanDeviation());
-        } 
+        }
 
         MDA = this.arr[0];
         MDB = this.arr[1];
@@ -165,7 +165,7 @@ export default class Extension {
             this.arr = this.convertStringToDecimalNumber(
                 new Statistics([], this.frequencyA, this.dataA).coefficientOfDeviation(),
                 new Statistics([], this.frequencyB, this.dataB).coefficientOfDeviation());
-        } 
+        }
         SA = this.arr[0];
         SB = this.arr[1];
         return this.comparisonAndConclusion(SA, SB, 'coefficientOfDeviation');
