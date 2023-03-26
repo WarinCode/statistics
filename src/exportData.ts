@@ -1,112 +1,112 @@
 import fs from 'fs';
 
 export interface dataStructure {
-    example1: {
-        set1: { data: number[], weight: number[] },
-        set2: { data: number[] },
-        set3: { data: number[], frequency: number[] },
-        set4: { classInterval: number[], frequency: number[] },
-        set5: { data: number[], weight: number[] }
+    readonly example1: {
+        readonly set1: { readonly data: number[], readonly weight: number[] },
+        readonly set2: { readonly data: number[] },
+        readonly set3: { readonly data: number[], readonly frequency: number[] },
+        readonly set4: { readonly classInterval: number[], readonly frequency: number[] },
+        readonly set5: { readonly data: number[], readonly weight: number[] }
     },
-    example2: {
-        set1: { data: number[] },
-        set2: { data: number[] },
-        set3: { data: number[], frequency: number[] },
-        set4: { classInterval: number[], frequency: number[] }
+    readonly example2: {
+        readonly set1: { readonly data: number[] },
+        readonly set2: { readonly data: number[] },
+        readonly set3: { readonly data: number[], readonly frequency: number[] },
+        readonly set4: { readonly classInterval: number[], readonly frequency: number[] }
     },
-    example3: {
-        set1: { data: number[] },
-        set2: { data: number[] },
-        set3: { data: number[] },
-        set4: { classInterval: number[], frequency: number[] },
-        set5: { classInterval: number[], frequency: number[] },
-        set6: { classInterval: number[], frequency: number[] }
+    readonly example3: {
+        readonly set1: { readonly data: number[] },
+        readonly set2: { readonly data: number[] },
+        readonly set3: { readonly data: number[] },
+        readonly set4: { readonly classInterval: number[], readonly frequency: number[] },
+        readonly set5: { readonly classInterval: number[], readonly frequency: number[] },
+        readonly set6: { readonly classInterval: number[], readonly frequency: number[] }
     },
-    example4: {
-        set1: { data: number[] },
-        set2: { data: number[] },
-        set3: { data: number[] },
-        set4: { data: number[] },
-        set5: { classInterval: number[], frequency: number[] },
-        set6: { data: number[] },
-        set7: { data: number[] },
-        set8: { data: number[] },
-        set9: { data: number[], frequency: number[] }
+    readonly example4: {
+        readonly set1: { readonly data: number[] },
+        readonly set2: { readonly data: number[] },
+        readonly set3: { readonly data: number[] },
+        readonly set4: { readonly data: number[] },
+        readonly set5: { readonly classInterval: number[], readonly frequency: number[] },
+        readonly set6: { readonly data: number[] },
+        readonly set7: { readonly data: number[] },
+        readonly set8: { readonly data: number[] },
+        readonly set9: { readonly data: number[], readonly frequency: number[] }
     },
-    example5: {
-        set1: { data: number[] },
-        set2: { data: number[], frequency: number[] },
-        set3: { data: number[] },
-        set4: { data: number[] },
-        set5: { data: number[], frequency: number[] },
-        set6: { data: number[], frequency: number[] },
-        set7: { classInterval: number[], frequency: number[] },
-        set8: { classInterval: number[], frequency: number[] }
+    readonly example5: {
+        readonly set1: { readonly data: number[] },
+        readonly set2: { readonly data: number[], readonly frequency: number[] },
+        readonly set3: { readonly data: number[] },
+        readonly set4: { readonly data: number[] },
+        readonly set5: { readonly data: number[], readonly frequency: number[] },
+        readonly set6: { readonly data: number[], readonly frequency: number[] },
+        readonly set7: { readonly classInterval: number[], readonly frequency: number[] },
+        readonly set8: { readonly classInterval: number[], readonly frequency: number[] }
     },
-    example6: {
-        set1: { classInterval: number[], frequency: number[] },
-        set2: { classInterval: number[], frequency: number[] },
-        set3: {
-            classInterval: number[],
-            frequency1: number[],
-            frequency2: number[]
+    readonly example6: {
+        readonly set1: { readonly classInterval: number[], readonly frequency: number[] },
+        readonly set2: { readonly classInterval: number[], readonly frequency: number[] },
+        readonly set3: {
+            readonly classInterval: number[],
+            readonly frequency1: number[],
+            readonly frequency2: number[]
         },
-        set4: { data1: number[], data2: number[], data3: number[], data4: number[] },
-        set5: { classInterval: number[], frequency: number[] },
-        set6: { classInterval: number[], frequency: number[] },
-        set7: { classInterval: number[], frequency: number[] },
-        set8: { data: number[] },
-        set9: { data: number[], frequency: number[] },
-        set10: { classInterval: number[], frequency: number[] }
+        readonly set4: { readonly data1: number[], readonly data2: number[], readonly data3: number[], readonly data4: number[] },
+        readonly set5: { readonly classInterval: number[], readonly frequency: number[] },
+        readonly set6: { readonly classInterval: number[], readonly frequency: number[] },
+        readonly set7: { readonly classInterval: number[], readonly frequency: number[] },
+        readonly set8: { readonly data: number[] },
+        readonly set9: { readonly data: number[], readonly frequency: number[] },
+        readonly set10: { readonly classInterval: number[], readonly frequency: number[] }
     },
-    example7: {
-        set1: { data: number[] },
-        set2: { data: number[], frequency: number[] },
-        set3: { classInterval: number[], frequency: number[] },
-        set4: { data: number[] },
-        set5: { data: number[], frequency: number[] },
-        set6: { classInterval: number[], frequency: number[] }
+    readonly example7: {
+        readonly set1: { readonly data: number[] },
+        readonly set2: { readonly data: number[], readonly frequency: number[] },
+        readonly set3: { readonly classInterval: number[], readonly frequency: number[] },
+        readonly set4: { readonly data: number[] },
+        readonly set5: { readonly data: number[], readonly frequency: number[] },
+        readonly set6: { readonly classInterval: number[], readonly frequency: number[] }
     },
-    example8: {
-        set1: { data: number[] },
-        set2: { data: number[], frequency: number[] },
-        set3: { classInterval: number[], frequency: number[] },
-        set4: { data: number[] },
-        set6: { data: number[] },
-        set7: { data: number[] },
-        set8: { data: number[] },
-        set9: { data: number[], frequency: number[] },
-        set10: { classInterval: number[], frequency: number[] },
-        set11: { data: number[] },
-        set12: { data: number[] }
+    readonly example8: {
+        readonly set1: { readonly data: number[] },
+        readonly set2: { readonly data: number[], readonly frequency: number[] },
+        readonly set3: { readonly classInterval: number[], readonly frequency: number[] },
+        readonly set4: { readonly data: number[] },
+        readonly set5: { readonly data: number[] },
+        readonly set6: { readonly data: number[] },
+        readonly set7: { readonly data: number[] },
+        readonly set8: { readonly data: number[], readonly frequency: number[] },
+        readonly set9: { readonly classInterval: number[], readonly frequency: number[] },
+        readonly set10: { readonly data: number[] },
+        readonly set11: { readonly data: number[] }
     },
-    example9: {
-        set1: { data: number[], frequency: number[] },
-        set2: { classInterval: number[], frequency: number[] },
-        set3: { classInterval: number[], frequency: number[] },
-        set4: { dataA: number[], dataB: number[] },
-        set5: {
-            dataA: {
-                classInterval: number[],
-                frequency: number[]
+    readonly example9: {
+        readonly set1: { readonly data: number[], readonly frequency: number[] },
+        readonly set2: { readonly classInterval: number[], readonly frequency: number[] },
+        readonly set3: { readonly classInterval: number[], readonly frequency: number[] },
+        readonly set4: { readonly dataA: number[], readonly dataB: number[] },
+        readonly set5: {
+            readonly dataA: {
+                readonly classInterval: number[],
+                readonly frequency: number[]
             },
-            dataB: {
-                classInterval: number[],
-                frequency: number[]
+            readonly dataB: {
+                readonly classInterval: number[],
+                readonly frequency: number[]
             },
-            dataC: {
-                classInterval: number[],
-                frequency: number[]
+            readonly dataC: {
+                readonly classInterval: number[],
+                readonly frequency: number[]
             }
         },
-        set6: { dataA: number[], dataB: number[] },
-        set7: {
-            classInterval: number[],
-            frequencyA: number[],
-            frequencyB: number[]
+        readonly set6: { readonly dataA: number[], readonly dataB: number[] },
+        readonly set7: {
+            readonly classInterval: number[],
+            readonly frequencyA: number[],
+            readonly frequencyB: number[]
         },
-        set8: { dataA: number[], dataB: number[] },
-        set9: { dataA: number[], dataB: number[] }
+        readonly set8: { readonly dataA: number[], readonly dataB: number[] },
+        readonly set9: { readonly dataA: number[], readonly dataB: number[] }
 
     }
 }
@@ -114,4 +114,4 @@ export interface dataStructure {
 const fileData: Buffer = fs.readFileSync('./src/data.json');
 const data: dataStructure = JSON.parse(fileData.toString());
 
-export default data;
+export { data };
