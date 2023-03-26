@@ -1,21 +1,21 @@
 # สถิติ
 
-`<header ><u>``<h2 align="center">`การหาค่าทางสถิติหาได้ทั้ง 2 แบบคือ แบบแจกแจงความถี่ และ แบบไม่แจกแจงความถี่`</h2></u>``</header>`
+<header ><u><h2 align="center">การหาค่าทางสถิติหาได้ทั้ง 2 แบบคือ แบบแจกแจงความถี่ และ แบบไม่แจกแจงความถี่</h2></u>``</header>`
 
-> โปรแกรมนั้นยังต้องมีการแก้ไข code ในบางส่วนยังคงมีบัคมี error อยู่บ้างถ้าหากใส่ข้อมูลไปแล้ว รัน code ได้คำตอบเป็น undefined หรือ NaN ก็แปลว่ายังไม่ได้แก้ไข error ในส่วนตรงนั้น
+> โปรแกรมนี้ไม่ลองรับข้อมูลขนาดใหญ่ข้อมูลที่มีจำนวนมากได้ และข้อมูลที่ไม่แน่นอน โปรดคัดกรองข้อมูลก่อนนำไปเขียนสคริปต์เพื่อคำนวณ
 
 ### ติดตั้งโปรเจค
 
 เปิด Terminal พิมพ์คำสั่งตามนี้
 
-- `<code>` git clone [https://github.com/VarinCode/statistics.git](https://github.com/VarinCode/statistics.git) `</code>` `<br/>`
-- `<code>` cd statistics `</code><br/>`
-- `<code>` code. `</code>`
+- <code> git clone [https://github.com/VarinCode/statistics.git](https://github.com/VarinCode/statistics.git) </code><br/>
+- <code> cd statistics </code><br/>
+- <code> code. </code>
 
 ### อธิบายการใส่ข้อมูล
 
 ```javascript
-import Statistics from "../main";	// เรียกใช้ module 
+import Statistics from "../main"; // เรียกใช้ module 
 
 /* การใส่ข้อมูล */
 /* 
@@ -31,22 +31,18 @@ new Statistics( [arrayช่องที่1] , [arrayช่องที่2] , 
 ```
 
 ### นำไปใช้งาน
+1. ติดตั้งโปรเจคเสร็จเรียบร้อยแล้วสามารถทดลองใช้งานได้ที่ไฟล์ test.ts 
+2. import module เข้ามาในไฟล์
+3. เขียนคำสั่งและใส่ข้อมูลครบถูกต้อง
+4. เรียกใช้ methods ที่ต้องการในสถิติจาก class Statistics 
+5. แสดงผลข้อมูลที่ได้ผ่าน console.log();
 
-```javascript
-import Statistics from "../main"; 
-/*
-    1. ติดตั้งโปรเจคเสร็จเรียบร้อยแล้ว สามารถทดลองใช้งานได้ที่ไฟล์ test.ts 
-    2. ใส่ข้อมูลครบและถูกต้อง
-    3. เรียกใช้ methods ที่ต้องการในสถิติจาก class Statistics 
-    4. แสดงผลข้อมูลที่ได้ผ่าน console.log();
-*/
-```
 
 ### ตัวอย่างการใช้งานโปรแกรม
 
-```javascript
+```typescript
 import Statistics from "../main";
-/* ดูตัวอย่างการใช้งานเพิ่มเติมได้ที่ไฟล์ example.ts */
+/* ดูตัวอย่างการใช้งานเพิ่มเติมได้ที่ไฟล์ example.ts และ newExample.ts*/
 
 /* ตัวอย่างที่ 1 */
 let data = new Statistics([8,9,5,7,11,10,12,9,10]);
@@ -90,28 +86,6 @@ console.log(data.mode());
 
 
 /* ตัวอย่างที่ 5 */
-let dataA = [75,72,71,73,74,76];
-let dataB = [112,115,118,116,117,110];
-const conclusion = (A , B) => {
-        console.log('ข้อมูลชุด A มี ' + new Statistics(A).coefficientOfRange());
-        console.log('ข้อมูลชุด B มี ' + new Statistics(B).coefficientOfRange());  
-    const analyzeData =  {
-        a:new Statistics(A).coefficientOfRange(),
-        b:new Statistics(B).coefficientOfRange(),
-    }
-    if(analyzeData.a > analyzeData.b){
-        console.log(`ข้อมูล A มีการกระจายมากกว่าข้อมูล B`);
-    } else if(analyzeData.a < analyzeData.b){
-        console.log(`ข้อมูล B มีการกระจายมากกว่าข้อมูล A`);
-    }
-}
-conclusion(dataA , dataB);
-// output: ข้อมูลชุด A มี สัมประสิทธิ์ของพิสัย C.R = 0.034
-//         ข้อมูลชุด B มี สัมประสิทธิ์ของพิสัย C.R = 0.035
-//         ข้อมูล B มีการกระจายมากกว่าข้อมูล A
-
-
-/* ตัวอย่างที่ 6 */
 let score = [20,30,35,50,75,90];
 let myScore = 35; 
 (function(data , Score){
@@ -121,22 +95,19 @@ let myScore = 35;
 // output: ค่ามาตราฐาน Z = -0.6
 
 
-/* ตัวอย่างที่ 7 */
+/* ตัวอย่างที่ 6 */
 let score = [20,30,35,50,75,90];
-let list = ['พธู' , 'ชูชาติ' ,'เอนก' , 'ดำรง' , 'ทนง' , 'พิชิต'];
-const process = async (Score , Name) => {
+let list= ['พธู' , 'ชูชาติ' ,'เอนก' , 'ดำรง' , 'ทนง' , 'พิชิต'];
+const func = new Promise((res, rej) => {
     try {
-        await Score;
-        await Name;
-        return new Statistics(Score).StandardScores(Score , Name);
-    } catch(err) {
-        throw err;
+        res(new Statistics(score).standardScores(score,list));
+    } catch (err){
+        rej(err);
     }
-}
-process(score , list)
-    .then((res) => console.log(res))
-    .catch((rej) => console.error(rej));
-
+})
+func
+    .then((result) => console.log(result))
+    .catch((reason) => console.error(reason));
 /*  output:
             คะแนนของ พธู มีค่ามาตราฐาน = -1.2,
             คะแนนของ ชูชาติ มีค่ามาตราฐาน = -0.8,
@@ -152,7 +123,7 @@ process(score , list)
 ```javascript
 import Statistics from "../main";
 const Stat = new Statistics();
-/* อ่านการใช้งานเบื้องต้นที่ไฟล์ manual.ts */
+/* อ่านการใช้งานเบื้องต้นได้ที่ไฟล์ manual.ts และ patterns.txt */
 
 Stat.data;                                  /* ข้อมูล (x) */
 Stat.sortData;                              /* เรียงข้อมูลจากน้อยไปมาก (x) */
@@ -195,7 +166,11 @@ Stat.showTable();                           /* แสดงตารางข้
 import Extension from '../plugin/extensions';
 const e: Extension = new Extension();
 
-e.generateNumbers();                        /* สร้างตัวเลขแบบสุ่มๆ*/
-e.generateClassInterval();    	            /* สร้างตัวเลขที่เป็นอันตรภาคชั้น */
-e.compareTheCoefficientOfDeviation();       /* การเปรียบเทียบสัมประสิทธิ์ของการแปรผัน */
+e.generateNumbers();                          /* สร้างตัวเลขแบบสุ่มๆ*/
+e.generateClassInterval();                   /* สร้างตัวเลขที่เป็นอันตรภาคชั้น */
+e.compareTheCoefficientOfRange();             /* การเปรียบเทียบสัมประสิทธิ์ของพิสัย */   
+e.compareTheCoefficientOfQuartileDeviation(); /* การเปรียบเทียบสัมประสิทธิ์องส่วนเบี่ยงเบนควอร์ไทล์ */
+e.compareTheCoefficientOfMeanDeviation();     /* การเปรียบเทียบสัมประสิทธิ์ของส่วนเบี่ยงเบนเฉลี่ย */
+e.compareTheCoefficientOfDeviation();         /* การเปรียบเทียบสัมประสิทธิ์ของการแปรผัน */
+
 ```
