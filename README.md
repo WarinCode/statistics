@@ -115,55 +115,55 @@ func
 ### คำสั่งทั้งหมด
 
 ```javascript
-import Statistics from "../main";
+import Statistics from "../main"; 
 const Stat = new Statistics();
 /* อ่านการใช้งานเบื้องต้นได้ที่ไฟล์ manual.ts และ patterns.txt */
 
-Stat.data; /* ข้อมูล (x) */
-Stat.sortData; /* เรียงข้อมูลจากน้อยไปมาก (x) */
-Stat.n(); /* จำนวนข้อมูลทั้งหมด (n) */
-Stat.classInterval; /* อันตรภาคชั้น */
-Stat.midPoint(); /* จุดกึ่งกลางชั้น */
-Stat.frequency; /* ความถี่ (f) */
-Stat.cumulative(); /* ความถี่สะสม (cf) */
-Stat.cumulativeFrequency; /* ความถี่สะสม (cf) */
-Stat.I; /* ความกว้างอันตรภาคช้น (i) */
-Stat.W; /* ค่าถ่วงน้ำหนัก (w) */
-Stat.mean(); /* หาค่าเฉลี่ยเลขคณิต */
-Stat.median(); /* หาค่ามัธยฐาน */
-Stat.mode(); /* หาฐานนิยม */
-Stat.midRange(); /* หาค่ากึ่งกลางพิสัย */
-Stat.range(); /* หาค่าพิสัย */
-Stat.Qr(); /* หาค่าควอร์ไทล์ */
-Stat.Dr(); /* หาค่าเดไซล์ */
-Stat.Pr(); /* หาค่าเปอร์เซนต์ไทล์ */
-Stat.harmonicmean(); /* หาค่าเฉลี่ยฮาร์โมนิค */
-Stat.geometricmean(); /* หาค่าเฉลี่ยเรขาคณิต */
-Stat.quartileDeviation(); /* หาส่วนเบี่ยงเบนควอร์ไทล์ */
-Stat.meanDeviation(); /* หาส่วนเบี่ยงเบนเฉลี่ย */
-Stat.standardDeviation(); /* หาส่วนเบี่ยงเบนเฉลี่ยมาตราฐาน */
-Stat.variance(); /* หาค่าความแปรปรวนข้อมูล */
-Stat.coefficientOfRange(); /* หาสัมประสิทธิ์ของพิสัย */
-Stat.coefficientOfQuartileDeviation(); /* หาสัมประสิทธิ์องส่วนเบี่ยงเบนควอร์ไทล์ */
-Stat.coefficientOfMeanDeviation(); /* หาสัมประสิทธิ์ของส่วนเบี่ยงเบนเฉลี่ย */
-Stat.coefficientOfDeviation(); /* หาสัมประสิทธิ์ของการแปรผัน */
-Stat.standardScores(); /* หาค่ามาตราฐาน */
-Stat.showData(); /* แสดงผลข้อมูลทั้งหมด */
-Stat.showNumber(); /* แสดงจำนวนข้อมูล */
-Stat.showClassInterval(); /* แสดงอันตรภาคชั้น */
-Stat.showMiddle(); /* แสดงจุดกึ่งกลางอันตรภาคชั้น */
-Stat.ShowFrequency(); /* แสดงความถี่ทั้งหมด */
-Stat.showI(); /* แสดงความกว้างของอันตรภาคชั้น */
-Stat.showWeignt(); /* แสดงค่าถ่วงน้ำหนัก */
-Stat.showTable(); /* แสดงตารางข้อมูล */
+Stat.data;                                        /* ข้อมูล (x) */
+Stat.sortData;                                    /* เรียงข้อมูลจากน้อยไปมาก (x) */
+Stat.n();                                         /* จำนวนข้อมูลทั้งหมด (n) */
+Stat.classInterval;                               /* อันตรภาคชั้น */
+Stat.midPoint();                                  /* จุดกึ่งกลางชั้น */
+Stat.frequency;                                   /* ความถี่ (f) */
+Stat.cumulative();                                /* ความถี่สะสม (cf) */
+Stat.cumulativeFrequency;                         /* ความถี่สะสม (cf) */
+Stat.I;                                           /* ความกว้างอันตรภาคช้น (i) */
+Stat.W;                                           /* ค่าถ่วงน้ำหนัก (w) */
+Stat.mean();                                      /* หาค่าเฉลี่ยเลขคณิต */
+Stat.median();                                    /* หาค่ามัธยฐาน */
+Stat.mode();                                      /* หาฐานนิยม */
+Stat.midRange();                                  /* หาค่ากึ่งกลางพิสัย */
+Stat.range();                                     /* หาค่าพิสัย */
+Stat.Qr();                                        /* หาค่าควอร์ไทล์ */
+Stat.Dr();                                        /* หาค่าเดไซล์ */
+Stat.Pr();                                        /* หาค่าเปอร์เซนต์ไทล์ */
+Stat.harmonicmean();                              /* หาค่าเฉลี่ยฮาร์โมนิค */
+Stat.geometricmean();                             /* หาค่าเฉลี่ยเรขาคณิต */
+Stat.quartileDeviation();                         /* หาส่วนเบี่ยงเบนควอร์ไทล์ */
+Stat.meanDeviation();                             /* หาส่วนเบี่ยงเบนเฉลี่ย */
+Stat.standardDeviation();                         /* หาส่วนเบี่ยงเบนเฉลี่ยมาตราฐาน */
+Stat.variance();                                  /* หาค่าความแปรปรวนข้อมูล */
+Stat.coefficientOfRange();                        /* หาสัมประสิทธิ์ของพิสัย */
+Stat.coefficientOfQuartileDeviation();            /* หาสัมประสิทธิ์องส่วนเบี่ยงเบนควอร์ไทล์ */
+Stat.coefficientOfMeanDeviation();                /* หาสัมประสิทธิ์ของส่วนเบี่ยงเบนเฉลี่ย */
+Stat.coefficientOfDeviation();                    /* หาสัมประสิทธิ์ของการแปรผัน */
+Stat.standardScores();                            /* หาค่ามาตราฐาน */
+Stat.showData();                                  /* แสดงผลข้อมูลทั้งหมด */
+Stat.showNumber();                                /* แสดงจำนวนข้อมูล */
+Stat.showClassInterval();                         /* แสดงอันตรภาคชั้น */
+Stat.showMiddle();                                /* แสดงจุดกึ่งกลางอันตรภาคชั้น */
+Stat.ShowFrequency();                             /* แสดงความถี่ทั้งหมด */
+Stat.showI();                                     /* แสดงความกว้างของอันตรภาคชั้น */
+Stat.showWeignt();                                /* แสดงค่าถ่วงน้ำหนัก */
+Stat.showTable();                                 /* แสดงตารางข้อมูล */
 
 import Extension from "../plugin/extensions";
 const e: Extension = new Extension();
 
-e.generateNumbers(); /* สร้างตัวเลขแบบสุ่มๆ*/
-e.generateClassInterval(); /* สร้างตัวเลขที่เป็นอันตรภาคชั้น */
-e.compareTheCoefficientOfRange(); /* การเปรียบเทียบสัมประสิทธิ์ของพิสัย */
-e.compareTheCoefficientOfQuartileDeviation(); /* การเปรียบเทียบสัมประสิทธิ์องส่วนเบี่ยงเบนควอร์ไทล์ */
-e.compareTheCoefficientOfMeanDeviation(); /* การเปรียบเทียบสัมประสิทธิ์ของส่วนเบี่ยงเบนเฉลี่ย */
-e.compareTheCoefficientOfDeviation(); /* การเปรียบเทียบสัมประสิทธิ์ของการแปรผัน */
+e.generateNumbers();                              /* สร้างตัวเลขแบบสุ่มๆ*/
+e.generateClassInterval();                        /* สร้างตัวเลขที่เป็นอันตรภาคชั้น */
+e.compareTheCoefficientOfRange();                 /* การเปรียบเทียบสัมประสิทธิ์ของพิสัย */
+e.compareTheCoefficientOfQuartileDeviation();     /* การเปรียบเทียบสัมประสิทธิ์องส่วนเบี่ยงเบนควอร์ไทล์ */
+e.compareTheCoefficientOfMeanDeviation();         /* การเปรียบเทียบสัมประสิทธิ์ของส่วนเบี่ยงเบนเฉลี่ย */
+e.compareTheCoefficientOfDeviation();             /* การเปรียบเทียบสัมประสิทธิ์ของการแปรผัน */
 ```
