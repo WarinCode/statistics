@@ -1,34 +1,34 @@
 {
-    "name": "statistics",
-    "displayName": "statistics",
-    "sponsor": false,
-    "preview": true,
-    "version": "0.0.2",
-    "description": "โปรแกรมนี้สร้างมาเพื่อหาค่าข้อมูลค่าสถิติต่างๆ จากการเรียนบทเรียนเรื่องสถิติ วิชา คณิตศาสตร์เพิ่มเติม ในห้องเรียนและนำเอามาใช้ประโยชน์ในการวิเคราะห์และวิจัยงานด้านต่างๆ",
-    "main": "main.ts",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/VarinCode/statistics.git"
-    },
-    "keywords": [
-        "คณิตศาสตร์",
-        "ตัวเลข",
-        "จำนวน",
-        "สถิติ",
-        "โปรแกรมคำนวณเลข",
-        "การหาค่าสถิติ",
-        "การคำนวณ"
-    ],
-    "scripts": {
-        "start": "ts-node ./test/test.ts"
-    },
-    "author": "VarinCode",
-    "license": false,
-    "bugs": {
-        "url": "https://github.com/VarinCode/statistics/issues"
-    },
-    "homepage": "https://github.com/VarinCode/statistics",
-    "devDependencies": {
-        "@types/node": "^18.15.3"
-    }
+  "name": "statistics",
+  "displayName": "statistics",
+  "sponsor": false,
+  "preview": true,
+  "version": "0.0.2",
+  "description": "โปรแกรมนี้สร้างมาเพื่อหาค่าข้อมูลค่าสถิติต่างๆ จากการเรียนบทเรียนเรื่องสถิติ วิชา คณิตศาสตร์เพิ่มเติม ในห้องเรียนและนำเอามาใช้ประโยชน์ในการวิเคราะห์และวิจัยงานด้านต่างๆ",
+  "main": "main.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VarinCode/statistics.git"
+  },
+  "keywords": [
+    "คณิตศาสตร์",
+    "ตัวเลข",
+    "จำนวน",
+    "สถิติ",
+    "โปรแกรมคำนวณเลข",
+    "การหาค่าสถิติ",
+    "การคำนวณ"
+  ],
+  "scripts": {
+    "start": "ts-node ./test/test.ts"
+  },
+  "author": "VarinCode",
+  "license": false,
+  "bugs": {
+    "url": "https://github.com/VarinCode/statistics/issues"
+  },
+  "homepage": "https://github.com/VarinCode/statistics",
+  "devDependencies": {
+    "@types/node": "^18.15.3"
+  }
 }
