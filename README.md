@@ -8,9 +8,9 @@
 
 เปิด Terminal พิมพ์คำสั่งตามนี้
 
-- `<code>` git clone [https://github.com/VarinCode/statistics.git](https://github.com/VarinCode/statistics.git) `</code><br/>`
-- `<code>` cd statistics `</code><br/>`
-- `<code>` code. `</code>`
+- <code> git clone [https://github.com/VarinCode/statistics.git](https://github.com/VarinCode/statistics.git) </code><br>
+- <code> cd statistics </code><br>
+- <code> code. </code>
 
 ### อธิบายการใส่ข้อมูล
 
@@ -35,7 +35,7 @@ new Statistics( [arrayช่องที่1] , [arrayช่องที่2] , 
 2. import module เข้ามาในไฟล์
 3. เขียนคำสั่งและใส่ข้อมูลครบถูกต้อง
 4. เรียกใช้ methods ที่ต้องการในสถิติจาก class Statistics
-5. แสดงผลข้อมูลที่ได้ผ่าน console.log();
+5. แสดงผลข้อมูลที่ได้ผ่าน console
 
 ### ตัวอย่างการใช้งานโปรแกรม
 
