@@ -20,7 +20,9 @@
     "การคำนวณ"
   ],
   "scripts": {
-    "start": "ts-node ./test/test.ts"
+    "install": "npm install",
+    "start": "ts-node ./test/test.ts",
+    "test": "ts-node ./test/test.ts"
   },
   "author": "VarinCode",
   "license": false,
@@ -29,6 +31,10 @@
   },
   "homepage": "https://github.com/VarinCode/statistics",
   "devDependencies": {
+    "@types/figlet": "^1.5.6",
     "@types/node": "^18.15.3"
+  },
+  "dependencies": {
+    "figlet": "^1.6.0"
   }
 }
