@@ -5,9 +5,6 @@
 > โปรแกรมนี้ไม่ลองรับข้อมูลขนาดใหญ่ข้อมูลที่มีจำนวนมากได้ และข้อมูลที่ไม่แน่นอน โปรดคัดกรองข้อมูลก่อนนำไปเขียนสคริปต์เพื่อคำนวณ
 
 ### ติดตั้งโปรเจค
-(เครื่องมือที่ต้องมี Visual Studio Code , nodejs)
-เปิด Terminal พิมพ์คำสั่งตามนี้
-
 - <code> git clone [https://github.com/VarinCode/statistics.git](https://github.com/VarinCode/statistics.git) </code><br>
 - <code> cd statistics </code><br>
 - <code> code. </code>
